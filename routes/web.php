@@ -13,17 +13,17 @@
 
 //前台页面路由
 Route::group(['namespace'=>'Home'], function(){
-    Route::get('/', 'HomeController@index');
+    Route::resource('/', 'HomeController');
     Route::get('/category/{id}', 'HomeController@category')->where('id', '[0-9]+');
     Route::get('/info-{id}.html', 'HomeController@info')->where('id', '[0-9]+');
-    Route::resource('/post', 'PostController');
     Route::get('/about', 'HomeController@about');
     Route::get('/statement', 'HomeController@statement');
+    Route::resource('/post', 'PostController');
 });
 
 //后台页面路由
 Route::group(['namespace'=>'Admin', 'prefix'=>'admin', 'middleware'=>'App\Http\Middleware\CheckAdmin'], function(){
-    Route::resource('/', 'AdminShowController');
+    Route::get('/', 'AdminShowController@index');
     Route::resource('/admin', 'AdminController');
     Route::resource('/user', 'UserController');
     Route::resource('/article', 'ArticleController');

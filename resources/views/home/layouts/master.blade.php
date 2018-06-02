@@ -62,7 +62,7 @@
                   <p>集安信息网，家乡人自己的生活信息平台！</p>
                                       <p>
                         <a target="_blank" href="/about">关于</a> &nbsp; 
-                        <a target="_blank" href="/post">发布</a> &nbsp;                         
+                        <a target="_blank" href="/create">发布</a> &nbsp;                         
                         <a target="_blank" href="/tp">置顶</a> &nbsp; 
                         <a target="_blank" href="/statement">声明</a> &nbsp; 
                         <a target="_blank" href="/blog">博客</a> &nbsp; 

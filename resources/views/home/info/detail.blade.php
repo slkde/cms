@@ -177,7 +177,7 @@ $(document).ready(function(){
                                 <label style="width: 100px;" for="exampleInputPassword2" >验证码：</label>
                                 <input style="width: 160px;" type="text" class="form-control " id="captcha" name="captcha" autocomplete="off" maxlength="4">
                                 <strong><p id="msgCaptcha" class="text-warning small">@if($errors->has('captcha')){{ $errors->first('captcha') }}@endif</p></strong>
-                                {!! $captchaImage !!}
+                                <img id="captchaImage" src="{!! captcha_src() !!}">
                               </div>
                               <input type="hidden" name="_token" value="{{ csrf_token() }}">
                               <input type="hidden" name="id" value="{{ $item->id }}">

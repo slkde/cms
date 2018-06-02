@@ -20,6 +20,7 @@ class Homecontroller extends Controller
         return view('home.index.index', compact('latestItems', 'comments', 'menu'));
     }
 
+
     public function category($id){
         $menu = Category::where('pid', 0)->get();
         $items = Article::where('category_id', $id)->latest('created_at')->Paginate(20);

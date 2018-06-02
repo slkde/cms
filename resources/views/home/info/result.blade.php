@@ -5,7 +5,7 @@
 @section('content')
 
 @push('css')
-<link rel="stylesheet" href="/bootstrap-select/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="/static/home/bootstrap-select/css/bootstrap-select.min.css">
 <style type="text/css">
 	html {
     	overflow-y:scroll;
@@ -14,8 +14,8 @@
 @endpush
 
 @push('js')
-<script type="text/javascript" src="/bootstrap-select/js/bootstrap-select.min.js"> </script>
-<script type="text/javascript" src="/bootstrap-filestyle/src/bootstrap-filestyle.min.js"> </script>
+<script type="text/javascript" src="/static/home/bootstrap-select/js/bootstrap-select.min.js"> </script>
+<script type="text/javascript" src="/static/home/bootstrap-filestyle/src/bootstrap-filestyle.min.js"> </script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#captchaImage").click(function(){
@@ -35,7 +35,7 @@ $(document).ready(function(){
 			  <h4>{{ $message }}</h4>
 		  <br />
 		  <p>
-			  <a href="/post" class="btn btn-default" role="button">&nbsp;&nbsp;继续发布&nbsp;&nbsp;</a>
+			  <a href="/create" class="btn btn-default" role="button">&nbsp;&nbsp;继续发布&nbsp;&nbsp;</a>
 			  <a href="/" class="btn btn-default" role="button">&nbsp;&nbsp;返回首页&nbsp;&nbsp;</a>
 		  </p>
 

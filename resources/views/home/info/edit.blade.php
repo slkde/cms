@@ -197,7 +197,7 @@ $(document).ready(function(){
 				    <div class="col-md-2">
 						<input type="text" class="form-control" id="captcha" name="captcha" autocomplete="off" maxlength="4">
 						<strong><p id="msgCaptcha" class="text-warning small">@if($errors->has('captcha')){{ $errors->first('captcha') }}@endif</p></strong>
-						 {!! $captchaImage !!}
+						 <img id="captchaImage" src="{!! captcha_src() !!}">
 				    </div>
 				    <div class="col-md-6">
 						<span class="help-block small"><span class="text-danger"></span>看不清？请点击图片切换。</span>
