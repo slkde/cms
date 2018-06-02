@@ -5,7 +5,7 @@
 @section('content')
 
 @push('css')
-<link rel="stylesheet" href="/css/detail.css">
+<link rel="stylesheet" href="/static/home/css/detail.css">
 @endpush
 
 @push('js')

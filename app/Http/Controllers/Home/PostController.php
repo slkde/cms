@@ -14,4 +14,9 @@ class PostController extends Controller
         $menu = Category::where('pid', 0)->get();
         return view('home.info.post', compact('menu'));
     }
+
+    public function store(Request $request){
+        
+        dd($request->input());
+    }
 }

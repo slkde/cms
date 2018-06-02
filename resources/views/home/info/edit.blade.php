@@ -3,7 +3,7 @@
 @section('content')
 
 @push('css')
-<link rel="stylesheet" href="/bootstrap-select/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="/static/home/bootstrap-select/css/bootstrap-select.min.css">
 <style type="text/css">
 .thumbnail {
     background-color: #fff;
@@ -19,8 +19,8 @@
 @endpush
 
 @push('js')
-<script type="text/javascript" src="/bootstrap-select/js/bootstrap-select.min.js"> </script>
-<script type="text/javascript" src="/bootstrap-filestyle/src/bootstrap-filestyle.min.js"> </script>
+<script type="text/javascript" src="/static/home/bootstrap-select/js/bootstrap-select.min.js"> </script>
+<script type="text/javascript" src="/static/home/bootstrap-filestyle/src/bootstrap-filestyle.min.js"> </script>
 <script type="text/javascript">
 	function deletePhoto(infoId, photoId)
 	{
@@ -97,7 +97,7 @@ $(document).ready(function(){
 			     <div id="form-group-category-id" class="form-group @if($errors->has('category_id')) has-error  @endif">
 					  <label for="category_id" class="col-md-2 control-label">栏目</label>
 					  <div class="col-md-5">
-					  		<p class="form-control-static">{{ $item->cat->name }}</p>
+					  		<p class="form-control-static">{{ $item->category->name }}</p>
 					  </div>
 				</div>
 				  <div id="form-group-area-id" class="form-group @if($errors->has('area_id')) has-error  @endif">
