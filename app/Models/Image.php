@@ -9,6 +9,8 @@ use App\Models\Article;
 class Image extends Model
 {
     //
+    protected $guarded = [];
+    
     public function article(){
         return $this->belongsTo(Article::class);
     }

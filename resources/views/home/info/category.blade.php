@@ -50,10 +50,10 @@ $(document).ready(function(){
     <div  class="col-md-9">
         <div class="list-group" id="datalist">
             @foreach ($items as $info)
-            <a target="_blank" href="/info-{{ $info->id }}.html" class="list-group-item" @if($info->is_category_top == 'Y') style="background-color: #fcf8e3" @endif>
+            <a target="_blank" href="/info-{{ $info->id }}.html" class="list-group-item" @if($info->is_category_top == 'YES') style="background-color: #fcf8e3" @endif>
             <h4 class="list-group-item-heading">
-            @if($info->is_category_top == 'Y')<span class="label label-warning lb-md">顶</span>@else <i class="icon-caret-right"></i> @endif
-            <span @if($info->is_category_top == 'Y') style="color: #c81721;" @endif>
+            @if($info->is_category_top == 'YES')<span class="label label-warning lb-md">顶</span>@else <i class="icon-caret-right"></i> @endif
+            <span @if($info->is_category_top == 'YES') style="color: #c81721;" @endif>
             {{$info->title}}
             
             </span>@if($info->is_mobile == 'Y') <i class="icon-mobile-phone icon-large"></i>@endif

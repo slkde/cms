@@ -19,6 +19,7 @@ Route::group(['namespace'=>'Home'], function(){
     Route::get('/about', 'HomeController@about');
     Route::get('/statement', 'HomeController@statement');
     Route::resource('/post', 'PostController');
+    Route::post('/comment', 'PostController@comment');
 });
 
 //后台页面路由

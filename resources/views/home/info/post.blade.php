@@ -132,7 +132,7 @@ $(document).ready(function(){
 					  <div class="col-md-5">
 								<select class="selectpicker show-tick category_id" title="请选择" name="category_id" id="category_id">
 										@foreach($menu as $v)
-										<option @if(old('category_id') ==  $v->id ) selected="selected"  @endif value="{{ $v->id }}" data-subtext="{{ $v->description }}">{{ $v->name }}</option>
+										<option @if(old('category_id') ==  $v->id ) selected="selected"  @endif value={{ $v->id }} data-subtext="{{ $v->description }}">{{ $v->name }}</option>
 										@endforeach
 								</select>
                           <strong><p id="msgCategoryId" class="small text-warning">@if($errors->has('category_id')){{ $errors->first('category_id') }}@endif</p></strong>

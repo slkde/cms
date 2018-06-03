@@ -76,7 +76,7 @@
           <div class="list-group small">            
             @foreach ($comments as $item)
             @if(mb_strlen($item->content) > 3)
-            <li class="list-group-item"><a target="_blank" href="info-{{ $item->info_id }}.html" >{{ str_limit($item->content, 45) }}</a></li>            
+            <li class="list-group-item"><a target="_blank" href="info-{{ $item->article_id }}.html" >{{ str_limit($item->content, 45) }}</a></li>            
             @endif
             @endforeach
           </div>

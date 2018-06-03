@@ -10,7 +10,7 @@ use App\Models\Comment;
 use App\Models\Category;
 use App\Models\Image;
 
-class Homecontroller extends Controller
+class HomeController extends Controller
 {
     //
     public function index(){
@@ -26,6 +26,7 @@ class Homecontroller extends Controller
         $items = Article::where('category_id', $id)->latest('created_at')->Paginate(20);
         $categories =  Category::where('pid', $id)->get();
         $infoCat =  Category::find($id);
+        dd($infoCat->Article);
         $breadcrumb = '';
         // dd($infoCat->getparent()->name);
         $isShowMore = $items->count() < 50 ? false : true;
@@ -35,9 +36,9 @@ class Homecontroller extends Controller
     public function info($id){
         $menu = Category::where('pid', 0)->get();
         $item = Article::find($id);
+        // dd($item->comments);
         $breadcrumb = '';
-        $captchaImage = '';
-        return view('home.info.detail', compact('item', 'breadcrumb', 'captchaImage', 'menu'));
+        return view('home.info.detail', compact('item', 'breadcrumb', 'menu'));
     }
 
     public function about(){

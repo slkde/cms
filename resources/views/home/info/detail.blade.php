@@ -18,18 +18,79 @@ $(document).ready(function(){
     this.src='/captcha?d='+Math.random();
   });
 
+  // $.ajax({
+  //          type:'POST',
+  //          url:'/hits',
+  //          beforeSend: function() {
+  //               $("#hits").html("<span class=\"small\" id=\"loading\"><i class=\"icon-spinner icon-spin\"></i></span>");
+  //          },           
+  //          data:'_token=<?php echo csrf_token() ?>&id={{ $item->id }}',
+  //          success:function(hits){
+  //             $("#hits").html(hits);
+  //          }
+  //     });   
+
+  //手机号码归属地跨域请求
   $.ajax({
-           type:'POST',
-           url:'/hits',
-           beforeSend: function() {
-                $("#hits").html("<span class=\"small\" id=\"loading\"><i class=\"icon-spinner icon-spin\"></i></span>");
-           },           
-           data:'_token=<?php echo csrf_token() ?>&id={{ $item->id }}',
-           success:function(hits){
-              $("#hits").html(hits);
-           }
-      });      
+        type:'GET',
+        url:'http://tcc.taobao.com/cc/json/mobile_tel_segment.htm',
+        data:{'tel':$("#telarea").attr('tel')},
+        dataType:'jsonp',
+        beforeSend: function(){
+          $("#telarea").html('正在查询手机归属地'); 
+        },
+        success:function(data){
+          if(!data.province){
+            $("#telarea").html('电话归属地：查询失败');
+          }else{
+            $("#telarea").html('电话归属地：' + data.province);
+          }
+          
+        },
+        error:function(){
+          $("#telarea").html('电话归属地：查询失败');
+        }
+  });
+  // 跨域请求失败
+  // $.ajax({ 
+  //   type:'GET', 
+  //   url:'http://ip.taobao.com/service/getIpInfo.php', 
+  //   data:{'ip':'175.23.143.0'},
+  //   dataType:'jsonp', 
+  //   crossDomain: true,
+  //   beforeSend: function(){ $(".iparea").html('正在查询IP地址归属地'); }, 
+  //   success:function(data){ 
+  //     console.log(data);
+  //     // if(!data.data.city){
+  //     //   $(".iparea").html('IP地址归属地：查询失败'); 
+  //     // }else{ 
+  //     //   $("#telarea").html('IP地址归属地：' + data.province); } 
+  //     }, 
+  //   error:function(){ 
+  //     console.log();
+  //     $(".iparea").html('IP地址归属地：查询失败');
+  //   } 
+  // });
+
+  
+  $('.iparea').each(function(){
+    $.getScript('http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js&ip=' + $('.iparea').attr('ip'), function(){ 
+      if(remote_ip_info.city){
+        $('.iparea').html('所属地：' + remote_ip_info.country + remote_ip_info.city);
+      }else{
+        $('.iparea').html('所属地：' + remote_ip_info.country);
+      }
+    });
+    // alert(this);
+    
+  });
+
+  // $.getScript('http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js&ip=218.192.3.42', function(){
+  //   alert(remote_ip_info.city);
+  // });
+
 });
+
 </script>
 @endpush
 
@@ -87,17 +148,18 @@ $(document).ready(function(){
                             <div class="panel panel-default">
                               <div class="panel-heading small"><i class="icon-caret-right"></i><strong>联系方式</strong></div>
                               <div class="panel-body">
+                                    <p>
                                     @if ($item->linkman)
-                                    <p>
                                       <i class="icon-user"></i> 称呼：{{ $item->linkman }} &nbsp;
-                                      <span class="text-muted small">{{ preg_replace('/(\d+)\.(\d+)\.(\d+)\.(\d+)/', "$1.$2.$3.*", $item->ip) }}</span>
-                                    </p>
-                                    @endif
-                                    <p>
-                                      <i class="icon-phone"></i> 电话：{{ $item->tel }}
-                                      @if ($item->tel2area)
-                                      <span class="small" style="color:green">&nbsp;&nbsp;电话归属地：{{ $item->tel2area }}</span>
                                       @endif
+                                      <span class="text-muted small">{{ preg_replace('/(\d+)\.(\d+)\.(\d+)\.(\d+)/', "$1.$2.$3.*", $item->ip) }}</span>&nbsp;&nbsp;
+                                      <span class="small iparea"  ip="{{ preg_replace('/(\d+)\.(\d+)\.(\d+)\.(\d+)/', "$1.$2.$3.0", $item->ip) }}"></span>
+                                    </p>
+                                    <p>
+                                      <i class="icon-phone"></i> 电话：{{ $item->tel }}&nbsp;&nbsp;
+                                      
+                                      <span class="small" id="telarea" tel="{{ $item->tel }}" style="color:green">电话归属地：</span>
+                                      
                                     </p>
                                     <p><i class="icon-building"></i> 区域：{{ $item->category->name }}</p>
                                     @if ($item->isMobile == 'YES')<a href="tel:{{ $item->tel }}" class="btn btn-primary btn-block" role="button" ><i class="icon-pencil"></i> 点击拔打电话</a>@endif
@@ -147,13 +209,12 @@ $(document).ready(function(){
                         @endif
 
                         <div class="list-group small">
-                          @forelse ($item->comments() as $index => $comment)
+                          @forelse ($item->comments->where('is_verify','YES') as $index => $comment)
                               <div class="panel panel-info">
                                 <div class="panel-heading">
-                                  <div class=" pull-left">
-                                    {{ preg_replace('/(\d+)\.(\d+)\.(\d+)\.(\d+)/', "$1.$2.$3.*", $comment->ip) }} &nbsp;&nbsp; 
-                                    <span class="hidden-xs">{{ $comment->ip2area }} &nbsp;&nbsp; </span>
-                                    {{ $comment->create_time }}</div>&nbsp;
+                                  <div class="pull-left ip">{{ preg_replace('/(\d+)\.(\d+)\.(\d+)\.(\d+)/', "$1.$2.$3.0", $comment->ip) }}</div>&nbsp;&nbsp;
+                                    <span class="hidden-xs"></span>
+                                    {{ $comment->created_at }}&nbsp;
                                   <div class="pull-right">          
                                       <strong>{{ $index+1 }}</strong>楼
                                   </div>
@@ -167,7 +228,7 @@ $(document).ready(function(){
                           @endforelse
                         </div>
                         @if ($item->expireDays != '已经过期')
-                            <form class="small" role="form" action="/comments/save" method="post">
+                            <form class="small" role="form" action="/comment" method="post">
                               <div class="form-group @if($errors->has('content')) has-error  @endif" id="content-form-group">
                                 <textarea class="form-control" rows="3" id="content" name="content">{{ old('content') }}</textarea>
                                 <strong><p id="msgContent" class="text-warning small">@if($errors->has('content')){{ $errors->first('content') }}@endif</p></strong>
@@ -180,7 +241,7 @@ $(document).ready(function(){
                                 <img id="captchaImage" src="{!! captcha_src() !!}">
                               </div>
                               <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                              <input type="hidden" name="id" value="{{ $item->id }}">
+                              <input type="hidden" name="article_id" value="{{ $item->id }}">
                               <button type="submit" id="saveComment" class="btn btn-primary btn-sm">咨询留言</button>
                             </form>
                         @endif                        
