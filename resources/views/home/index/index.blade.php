@@ -42,19 +42,19 @@
             <ul class="list-group">
                   @foreach ($latestItems as $item)
                       <li class="list-group-item ">
-                      @if($item->is_index_top == 'Y')<span class="label label-warning lb-md">顶</span>@else <i class="icon-angle-right"></i>@endif
+                      @if($item->index_top_expired > now())<span class="label label-warning lb-md">顶</span>@else <i class="icon-angle-right"></i>@endif
                         <strong>
-                            <a target="_blank" @if($item->is_index_top == 'Y') class="text-top" @endif href="/info-{{ $item->id }}.html">
+                            <a target="_blank" @if($item->index_top_expired > now()) class="text-top" @endif href="/info-{{ $item->id }}.html">
                                  {{ str_limit($item->title, 40) }}
                             </a>
                         </strong>
-                        @if($item->is_mobile == 'Y')<i class="icon-mobile-phone icon-large"></i>@endif
-                          <a target="_blank" class="small text-info hidden-xs" href="/category/{{ $item->category_id }}">{{ $item->category_name }}</a>
-                          <span class="small text-muted hidden-xs">{{ $item->area_name }}</span>
-                        @if($item->is_index_top == 'Y')
-                        <span class="small text-muted">今天</span>
+                        @if($item->tel != null)<i class="icon-mobile-phone icon-large"></i>@endif
+                          <a target="_blank" class="small text-info hidden-xs" href="/category/{{ $item->category->id }}">{{ $item->category->name }}</a>
+                          <span class="small text-muted hidden-xs">{{ $item->district->name }}</span>
+                        @if(date('Y-m-d',strtotime($item->created_at)) == date('Y-m-d'))
+                        <span class="small text-muted pull-right">今天</span>
                         @else
-                        <span class="small text-muted">{{ $item->created_at_new }}</span>
+                        <span class="small text-muted pull-right">{{ date('Y-m-d',strtotime($item->created_at)) }}</span>
                         @endif
                       </li>
                   @endforeach

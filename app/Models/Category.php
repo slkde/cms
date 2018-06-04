@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Article;
-
+use DB;
 class Category extends Model
 {
     //
@@ -22,5 +22,9 @@ class Category extends Model
 
     public function getchild(){
         return $this->hasMany(Category::class,'pid');
+    }
+
+    public static function getids($id){
+        return  Category::select(DB::raw('GROUP_CONCAT(id) as ids'))->where('pid', $id)->groupBy('id')->get();
     }
 }

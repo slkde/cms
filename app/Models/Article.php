@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Image;
+use App\Models\District;
 class Article extends Model
 {
     //
@@ -18,6 +19,10 @@ class Article extends Model
 
     public function category(){
         return $this->belongsTo(Category::class);
+    }
+
+    public function district(){
+        return $this->belongsTo(District::class);
     }
 
     public function images(){

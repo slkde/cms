@@ -26,9 +26,9 @@
 
               <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav">
-                  @foreach($menu as $v)
+                  {{-- @foreach($menu as $v)
                     <li><a href="/category/{{ $v->id }}"><i class="icon-home">&nbsp;</i>{{ $v->name }}</a></li>
-                  @endforeach
+                  @endforeach --}}
                   <li><a href="/category/1"><i class="icon-home">&nbsp;</i>房产</a></li>
                   <li><a href="/category/2" ><i class="icon-user">&nbsp;</i>人才</a></li>
                   <li><a href="/category/3" ><i class="icon-shopping-cart">&nbsp;</i>供求</a></li>

@@ -1,5 +1,5 @@
 @extends('home.layouts.master')
-@section('title', "集安信息网 - $infoCat->name")
+@section('title', "集安信息网 - $category->name")
 @section('content')
 
 @push('js')
@@ -10,7 +10,7 @@ $(document).ready(function(){
     var page = 1;
     $("#readmore").click(function () {
         page++;
-        load_contents({{ $infoCat->id }}, page);
+        load_contents({{ $category->id }}, page);
     });
 
     function load_contents(cid, page){
@@ -50,15 +50,20 @@ $(document).ready(function(){
     <div  class="col-md-9">
         <div class="list-group" id="datalist">
             @foreach ($items as $info)
-            <a target="_blank" href="/info-{{ $info->id }}.html" class="list-group-item" @if($info->is_category_top == 'YES') style="background-color: #fcf8e3" @endif>
-            <h4 class="list-group-item-heading">
-            @if($info->is_category_top == 'YES')<span class="label label-warning lb-md">顶</span>@else <i class="icon-caret-right"></i> @endif
-            <span @if($info->is_category_top == 'YES') style="color: #c81721;" @endif>
-            {{$info->title}}
-            
-            </span>@if($info->is_mobile == 'Y') <i class="icon-mobile-phone icon-large"></i>@endif
-            </h4>
-            <span class="list-group-item-text small text-muted">{{ str_limit($info->content, 80)}}</span><span class="pull-right small">{{ $info->created_at_new }}</span>
+            <a target="_blank" href="/info-{{ $info->id }}.html" class="list-group-item" @if($info->category_top_expired > now() or $info->index_top_expired > now()) style="background-color: #fcf8e3" @endif>
+                <h4 class="list-group-item-heading">
+                    @if($info->category_top_expired > now() or $info->index_top_expired > now())<span class="label label-warning lb-md">顶</span>@else <i class="icon-caret-right"></i> @endif
+                    <span @if($info->category_top_expired > now() or $info->index_top_expired > now()) style="color: #c81721;" @endif>
+                    {{$info->title}}
+                    </span>
+                    @if($info->tel != null) <i class="icon-mobile-phone icon-large pull-right"></i>@endif
+                </h4>
+                <span class="list-group-item-text small text-muted">{{ str_limit($info->content, 80)}}</span>
+                @if(date('Y-m-d',strtotime($info->created_at)) == date('Y-m-d'))
+                    <span class="pull-right small">今天</span> 
+                @else
+                    <span class="pull-right small">{{ date('Y-m-d',strtotime($info->created_at)) }}</span>
+                @endif
             </a>
             @endforeach
         </div>
@@ -69,12 +74,12 @@ $(document).ready(function(){
     <br class="visible-xs" />
     <div class="col-md-3">
         <div class="list-group small">
-            <a href="#" class="list-group-item disabled">{{ $infoCat->parent_id  ? $infoCat->parent_name : $infoCat->name }}分类</a>
-            @foreach ($categories as $cat)
-            <a href="{{ $cat->id }}" class="list-group-item {{ $infoCat->id == $cat->category_id ? 'active' : '' }}">
+            <a href="#" class="list-group-item disabled">{{ $category->getparent  ? $category->getparent->name : $category->name }}分类</a>
+            {{-- @foreach ($category->getparent as $cat)
+            <a href="{{ $cat->id }}" class="list-group-item {{ $category->id == $cat->category_id ? 'active' : '' }}">
                 {{ $cat->name }}
             </a>
-            @endforeach
+            @endforeach --}}
         </div>
          <div class="alert alert-warning alert-dismissible" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>

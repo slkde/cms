@@ -17,7 +17,7 @@ class PostController extends Controller
     //
     public function index(){
         session(['time_start' => microtime(true)]);
-        $menu = Category::where('pid', 0)->get();
+        // $menu = Category::where('pid', 0)->get();
         return view('home.info.post', compact('menu'));
     }
 
