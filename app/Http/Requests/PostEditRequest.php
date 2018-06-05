@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PostRequest extends FormRequest
+class PostEditRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +24,12 @@ class PostRequest extends FormRequest
     public function rules()
     {
         return [
-            'category_id'    =>  'required|exists:categorys,id',
             'district_id'    =>  'required|exists:districts,id',
             'expired_days'   =>  'required',
             'title'          =>  'required|min:6',
             'content'        =>  'required',
             'tel'            =>  ['required', 'regex:/^1[3|4|5|7|8][0-9]\d{8}$/'],
+            'email'          =>  'sometimes|email',
             'manage_passwd'  =>  'required|min:4',
             'images.*'       =>  'image|max:2048',
             'captcha'        =>  'required|captcha'
@@ -38,7 +38,6 @@ class PostRequest extends FormRequest
 
     public function messages(){
         return [
-            'category_id.required'   => '请选择栏目',
             'district_id.required'   => '请选择区域',
             'expired_days.required'  => '请选择有期限期',
             'title.required'         => '标题不能为空',

@@ -58,24 +58,25 @@ $(document).ready(function(){
 			$("#msgCaptcha").html("验证码输入错误");
 			$("#captcha-form-group").addClass('has-error');
 			submitForm = false;
-		} else {
-			$.ajax({
-               type:'POST',
-               async:false,
-               url:'/checkCaptcha',
-               data:'_token=<?php echo csrf_token() ?>&captcha=' + $("#captcha").val(),
-               success:function(data){
-                  if (data.result == false) {
-                  		$("#msgCaptcha").html("验证码输入错误");
-                  		$("#captcha-form-group").addClass('has-error');
-                  		submitForm = false;
-                  } else {
-                  		$("#msgCaptcha").html('');
-                  		$("#captcha-form-group").removeClass('has-error');
-                  }
-               }
-	        });
-		}
+		} 
+		// else {
+		// 	$.ajax({
+    //            type:'POST',
+    //            async:false,
+    //            url:'/checkCaptcha',
+    //            data:'_token=<?php echo csrf_token() ?>&captcha=' + $("#captcha").val(),
+    //            success:function(data){
+    //               if (data.result == false) {
+    //               		$("#msgCaptcha").html("验证码输入错误");
+    //               		$("#captcha-form-group").addClass('has-error');
+    //               		submitForm = false;
+    //               } else {
+    //               		$("#msgCaptcha").html('');
+    //               		$("#captcha-form-group").removeClass('has-error');
+    //               }
+    //            }
+	  //       });
+		// }
 		$(this).removeAttr('disabled');
 		return submitForm;
 	});
@@ -93,40 +94,41 @@ $(document).ready(function(){
            	<h4>修改信息</h4>
            	<hr />
 
-		    <form class="form-horizontal" role="form" action="info-modify-{{ $item->id }}.html" method="post" enctype="multipart/form-data">
+				<form class="form-horizontal" role="form" action="{{ url('/post' .'/' .$item->id ) }}" method="post" enctype="multipart/form-data">
+					{{ method_field('PUT') }}
 			     <div id="form-group-category-id" class="form-group @if($errors->has('category_id')) has-error  @endif">
 					  <label for="category_id" class="col-md-2 control-label">栏目</label>
 					  <div class="col-md-5">
 					  		<p class="form-control-static">{{ $item->category->name }}</p>
 					  </div>
 				</div>
-				  <div id="form-group-area-id" class="form-group @if($errors->has('area_id')) has-error  @endif">
+				  <div id="form-group-area-id" class="form-group @if($errors->has('district_id')) has-error  @endif">
 				    <label for="area_id" class="col-md-2 control-label">区域</label>
 				    <div class="col-md-10">
-						<select class="selectpicker show-tick" title="请选择" name="area_id" id="area_id">
-						  <option @if(old('area_id',$item->area_id) == 1 ) selected="selected"  @endif value="1">市区/街道</option>
-						  <option @if(old('area_id',$item->area_id) == 2 ) selected="selected"  @endif value="2">青石镇</option>
-						  <option @if(old('area_id',$item->area_id) == 3 ) selected="selected"  @endif value="3">榆林镇</option>
-						  <option @if(old('area_id',$item->area_id) == 4 ) selected="selected"  @endif value="4">花甸镇</option>
-						  <option @if(old('area_id',$item->area_id) == 5 ) selected="selected"  @endif value="5">头道镇</option>
-						  <option @if(old('area_id',$item->area_id) == 6 ) selected="selected"  @endif value="6">清河镇</option>
-						  <option @if(old('area_id',$item->area_id) == 7 ) selected="selected"  @endif value="7">台上镇</option>
-						  <option @if(old('area_id',$item->area_id) == 8 ) selected="selected"  @endif value="8">财源镇</option>
-						  <option @if(old('area_id',$item->area_id) == 9 ) selected="selected"  @endif value="9">大路镇</option>
-						  <option @if(old('area_id',$item->area_id) == 10 ) selected="selected"  @endif value="10">太王镇</option>
-						  <option @if(old('area_id',$item->area_id) == 11 ) selected="selected"  @endif value="11">麻线乡</option>
-						  <option @if(old('area_id',$item->area_id) == 12 ) selected="selected"  @endif value="12">凉水朝鲜族乡</option>
-						  <option @if(old('area_id',$item->area_id) == 13 ) selected="selected"  @endif value="13">其他</option>
+						<select class="selectpicker show-tick" title="请选择" name="district_id" id="area_id">
+						  <option @if(old('area_id',$item->district_id) == 1 ) selected="selected"  @endif value="1">市区/街道</option>
+						  <option @if(old('area_id',$item->district_id) == 2 ) selected="selected"  @endif value="2">青石镇</option>
+						  <option @if(old('area_id',$item->district_id) == 3 ) selected="selected"  @endif value="3">榆林镇</option>
+						  <option @if(old('area_id',$item->district_id) == 4 ) selected="selected"  @endif value="4">花甸镇</option>
+						  <option @if(old('area_id',$item->district_id) == 5 ) selected="selected"  @endif value="5">头道镇</option>
+						  <option @if(old('area_id',$item->district_id) == 6 ) selected="selected"  @endif value="6">清河镇</option>
+						  <option @if(old('area_id',$item->district_id) == 7 ) selected="selected"  @endif value="7">台上镇</option>
+						  <option @if(old('area_id',$item->district_id) == 8 ) selected="selected"  @endif value="8">财源镇</option>
+						  <option @if(old('area_id',$item->district_id) == 9 ) selected="selected"  @endif value="9">大路镇</option>
+						  <option @if(old('area_id',$item->district_id) == 10 ) selected="selected"  @endif value="10">太王镇</option>
+						  <option @if(old('area_id',$item->district_id) == 11 ) selected="selected"  @endif value="11">麻线乡</option>
+						  <option @if(old('area_id',$item->district_id) == 12 ) selected="selected"  @endif value="12">凉水朝鲜族乡</option>
+						  <option @if(old('area_id',$item->district_id) == 13 ) selected="selected"  @endif value="13">其他</option>
 						</select>
-						@if($errors->has('area_id')) <p class="text-warning small"><strong>{{ $errors->first('area_id') }}</strong></p>  @endif
+						@if($errors->has('area_id')) <p class="text-warning small"><strong>{{ $errors->first('district_id') }}</strong></p>  @endif
 				    </div>
 				  </div>
 
-				  <div id="form-group-day" class="form-group @if($errors->has('day')) has-error  @endif">
+				  <div id="form-group-day" class="form-group @if($errors->has('expired_days')) has-error  @endif">
 				     <label for="day" class="col-md-2 control-label">有效期限</label>
 				     <div class="col-md-2">	
 						<div class="input-group">
-						  <input name="day" type="text" class="form-control" maxlength="2" value="{{ old('expired_days', $item->expired_days) }}">
+						  <input name="expired_days" type="text" class="form-control" maxlength="2" value="{{ old('expired_days', $item->expired_days) }}">
 						  <span class="input-group-addon">天</span>
 						</div>
 				    </div>
@@ -173,7 +175,7 @@ $(document).ready(function(){
 						@if($errors->has('images.0') || $errors->has('images.1') || $errors->has('images.2')) <p class="text-warning small">上传失败，确认上传的文件为图像且图像小于1M</p> @endif
 						
 						<div class="row">
-							@foreach ($item->photos as $photo)
+							@foreach ($item->images as $photo)
 							<div class="col-md-4 text-center" id="photo{{$photo->id}}">
 								<a target="_blank" href="{{ $photo->file }}" class="thumbnail"><img width="100" src="{{ $photo->file }}" ></a>
 								<button onclick="deletePhoto({{$item->id}}, {{$photo->id}})" type="button" class="btn btn-default btn-xs">&nbsp;删&nbsp;除&nbsp;</button>
@@ -187,8 +189,8 @@ $(document).ready(function(){
 				  <div  id="form-group-ps" class="form-group @if($errors->has('ps')) has-error  @endif">
 				    <label for="ps" class="col-md-2 control-label">管理密码</label>
 				    <div class="col-md-2">
-						<input type="text" class="form-control" name="ps" id="ps" value="{{ old('ps', $item->manage_passwd) }}" maxlength="10">
-                        @if($errors->has('ps'))<strong><p id="msgPs" class="text-warning small">{{ $errors->first('ps') }}</p></strong>@endif
+						<input type="text" class="form-control" name="manage_passwd" id="ps" value="{{ old('ps', $item->manage_passwd) }}" maxlength="10">
+                        @if($errors->has('manage_passwd'))<strong><p id="msgPs" class="text-warning small">{{ $errors->first('manage_passwd') }}</p></strong>@endif
 				    </div>
 				  </div>
 
@@ -206,7 +208,6 @@ $(document).ready(function(){
 				  <div class="form-group">
 				    <div class="col-md-offset-1 col-lg-md text-center">
 				      <input type="hidden" name="_token" value="{{ csrf_token() }}">
-				      <input type="hidden" name="id" value="{{ $item->id }}">
 				      <button id="postform" type="submit" class="btn btn-primary btn-lg">&nbsp;&nbsp;保 存 信 息&nbsp;&nbsp;</button>
 				    </div>
 				  </div>

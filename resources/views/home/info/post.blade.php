@@ -130,12 +130,15 @@ $(document).ready(function(){
 			    <div id="category_id-form-group" class="form-group @if($errors->has('category_id')) has-error  @endif">
 					  <label for="category_id" class="col-md-2 control-label">栏目</label>
 					  <div class="col-md-5">
-								<select class="selectpicker show-tick category_id" title="请选择" name="category_id" id="category_id">
-										@foreach($menu as $v)
-										<option @if(old('category_id') ==  $v->id ) selected="selected"  @endif value={{ $v->id }} data-subtext="{{ $v->description }}">{{ $v->name }}</option>
-										@endforeach
+								<select class="selectpicker show-tick" title="请选择" name="category_id" id="category_id">
+										<option @if(old('category_id') == 1 ) selected="selected"  @endif value="1" data-subtext="求租/出租/求购/中介/公寓/旅店/门市/商铺/摊位...">房产</option>
+										<option @if(old('category_id') == 2 ) selected="selected"  @endif value="2" data-subtext="店员/营业员/经营/行政/人事/后勤/教师/教练/助教...">人才</option>
+										<option @if(old('category_id') == 3 ) selected="selected"  @endif value="3" data-subtext="物品交换/手机/电脑/家电/工具/设备/材料...">供求</option>
+										<option @if(old('category_id') == 4 ) selected="selected"  @endif value="4" data-subtext="装修/维修/家政/快递/物流/搬家/庆典/摄影/鲜花...">服务</option>
+										<option @if(old('category_id') == 5 ) selected="selected"  @endif value="5" data-subtext="兴趣交友/征婚/寻亲/寻友...">交友</option>
+										<option @if(old('category_id') == 6 ) selected="selected"  @endif value="6" data-subtext="新车/二手车/手续/摩托/电动/自行车/拼车/租车/代驾...">车辆</option>
 								</select>
-                          <strong><p id="msgCategoryId" class="small text-warning">@if($errors->has('category_id')){{ $errors->first('category_id') }}@endif</p></strong>
+								<strong><p id="msgCategoryId" class="small text-warning">@if($errors->has('category_id')){{ $errors->first('category_id') }}@endif</p></strong>
 					  </div>
 				</div>
 

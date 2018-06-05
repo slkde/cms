@@ -15,8 +15,8 @@ $(document).ready(function(){
 
     function load_contents(cid, page){
         $.ajax({
-          type: 'POST',
-          url: "/infolist",
+          type: 'post',
+          url: "/getinfo",
           data: "_token=<?php echo csrf_token() ?>&page=" + page + "&cid=" + cid,
           beforeSend: function() {
               $("#readmore").hide();
@@ -75,11 +75,11 @@ $(document).ready(function(){
     <div class="col-md-3">
         <div class="list-group small">
             <a href="#" class="list-group-item disabled">{{ $category->getparent  ? $category->getparent->name : $category->name }}分类</a>
-            {{-- @foreach ($category->getparent as $cat)
+            @foreach ($category->getchild as $cat)
             <a href="{{ $cat->id }}" class="list-group-item {{ $category->id == $cat->category_id ? 'active' : '' }}">
                 {{ $cat->name }}
             </a>
-            @endforeach --}}
+            @endforeach
         </div>
          <div class="alert alert-warning alert-dismissible" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>

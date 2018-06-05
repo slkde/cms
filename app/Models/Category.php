@@ -25,6 +25,11 @@ class Category extends Model
     }
 
     public static function getids($id){
-        return  Category::select(DB::raw('GROUP_CONCAT(id) as ids'))->where('pid', $id)->groupBy('id')->get();
+        if(count(Category::find($id)->getchild)){
+            return Category::select(DB::raw('GROUP_CONCAT(id) as ids'))->where('pid', $id)->groupBy('id')->get();
+        }else{
+            return array($id);
+        }
+        
     }
 }

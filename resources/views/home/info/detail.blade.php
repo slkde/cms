@@ -140,7 +140,7 @@ $(document).ready(function(){
               <hr />
               <div class="row">
                 <div class="col-md-6">
-                            @if ($item->expireDays == '已经过期')
+                            @if (strtotime ('+' . $item->expired_days . ' day', strtotime($item->created_at)) < time())
                               <div class="alert alert-danger alert-dismissible fade in" role="alert">
                                 <strong>该信息已经过期，联系方式已经被隐藏。</strong>
                               </div>
@@ -150,7 +150,7 @@ $(document).ready(function(){
                               <div class="panel-body">
                                     <p>
                                     @if ($item->linkman)
-                                      <i class="icon-user"></i> 称呼：{{ $item->linkman }} &nbsp;
+                                      <i class="icon-user"></i> 称呼：{{ $item->linkman }}  &nbsp;
                                       @endif
                                       <span class="text-muted small">{{ preg_replace('/(\d+)\.(\d+)\.(\d+)\.(\d+)/', "$1.$2.$3.*", $item->ip) }}</span>&nbsp;&nbsp;
                                       <span class="small iparea"  ip="{{ preg_replace('/(\d+)\.(\d+)\.(\d+)\.(\d+)/', "$1.$2.$3.0", $item->ip) }}"></span>
@@ -174,12 +174,12 @@ $(document).ready(function(){
                           <div class="panel-body">
                                 @if (Session::has("auth$item->id"))
                                 <center>
-                                <a href="info-modify-{{ $item->id }}.html"  class="btn btn-default btn-sm" role="button">&nbsp;修&nbsp;改&nbsp;信&nbsp;息</a>
+                                <a href="{{ url('/post'. '/' . $item->id .'/edit') }}"  class="btn btn-default btn-sm" role="button">&nbsp;修&nbsp;改&nbsp;信&nbsp;息</a>
 
                                 <a class="btn btn-default btn-sm" role="button" class="text-top small" tabindex="0" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" data-content="信息过期后会自动失效，无需手动删除。">&nbsp;删&nbsp;除&nbsp;信&nbsp;息</a>
                                 </center>
                                 @else
-                                <form class="form-inline" action="/info/auth" method="post">
+                                <form class="form-inline" action="/article/auth" method="post">
                                   <div class="form-group">
                                     <label class="sr-only">&nbsp;</label>
                                     <p class="form-control-static small">管理密码：</p>
@@ -209,7 +209,7 @@ $(document).ready(function(){
                         @endif
 
                         <div class="list-group small">
-                          @forelse ($item->comments->where('is_verify','YES') as $index => $comment)
+                          @forelse ($item->comments->where('is_verify','Y') as $index => $comment)
                               <div class="panel panel-info">
                                 <div class="panel-heading">
                                   <div class="pull-left ip">{{ preg_replace('/(\d+)\.(\d+)\.(\d+)\.(\d+)/', "$1.$2.$3.0", $comment->ip) }}</div>&nbsp;&nbsp;
