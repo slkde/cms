@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Article;
 use App\Models\Comment;
+use App\Models\Image;
 use App\Http\Requests\PostRequest;
 use App\Http\Requests\PostEditRequest;
 use App\Http\Requests\CommentRequest;
@@ -32,19 +33,34 @@ class PostController extends Controller
             return redirect()->back();
         }
 
-        $input = $request->except('_token', 'captcha');
+        $input = $request->except('_token', 'captcha', 'images');
         $input['ip'] = $request->ip();
-
-        foreach($input as $v){
-            if(empty($input[$v])){
-                unset($input[$v]);
+        $input['is_mobile'] = $agent->isMobile() ? 'Y' : 'N';
+        foreach($input as $k=>$v){
+            if(empty($input[$k])){
+                unset($input[$k]);
             }
         }
-        if(!Article::create($input)){
+        $art = Article::create($input);
+        if(!$art){
             $request->flash;
             return redirect()->back();
         }
-        return redirect('/info/result')->with('message', '信息提交成功，审核通过后，就会在网站上显示！');
+
+        if ($request->hasFile('images')) {
+            $path =  '/upload/images/' . date('Y') . '/' . date('m') . '/';
+            foreach($request->file('images') as $image) {
+                $file = date('dHis') . rand('1000','9999') . '.' .  $image->extension();
+                if($image->move(public_path() . $path, $file)){
+                    $img['article_id'] = $art->id;
+                    $img['file'] = $path . $file;
+                    $img['size'] = round($image->getClientSize() / 1024);
+                    Image::create($img);
+                }
+            }
+        }
+
+        return redirect()->route('result')->with('message', '信息提交成功，审核通过后，就会在网站上显示！');
     }
 
     public function comment(CommentRequest $request){
@@ -60,12 +76,18 @@ class PostController extends Controller
     public function auth(Request $request){
         $input = $request->except('_token');
         $id = $input['id'];
-        // dd($input->id);
-        $item = Article::find($input['id'])->where('manage_passwd', $input['password'])->get()->first();
+        // dd($id);
+        // dd(session());
+        // $item = Article::find($input['id'])->where('manage_passwd', $input['password'])->get()->first();
+        $item = Article::where('id', $id)->where('manage_passwd', $input['password'])->get()->first();
         if(!$item){
+            // dd('密码错误！');
             return redirect()->back()->with('msgAuth' , '密码错误！');
         }
-        $request->session()->put("auth . $id");
+        $request->session()->put("auth.$id", true);
+        // dd($request->session());
+        // echo $request->session()->get("auth". $id);die;
+        // Session::get("auth". $id);die;
         return redirect()->back();
     }
 
@@ -79,23 +101,60 @@ class PostController extends Controller
     }
 
     public function update($id, PostEditRequest $request){
-        $input = $request->except('_token', '_method','captcha');
+        $input = $request->except('_token', '_method','captcha', 'images');
         $input['id'] = $id;
         $input['is_verify'] = 'N';
         // dd($input);
-        if(! session("auth$id")) {
+        if(! session("auth.$id")) {
             return redirect('/message')->with('message', '您无权访问该页面！');
         }
         $item = Article::find($id);
 
-        foreach($input as $v){
-            if(empty($input[$v])){
-                unset($input[$v]);
+        foreach($input as $k=>$v){
+            if(empty($input[$k])){
+                unset($input[$k]);
             }
         }
         if(! $item->update($input)){
-            return redirect('/post/result')->with('message', '未知错误！');
+            return redirect('/result')->with('message', '未知错误！');
         }
-        return redirect('/post/result')->with('message', '信息保存成功，管理员审核通过后，就会在网站上显示！');
+
+        if ($request->hasFile('images')) {
+            $path =  '/upload/images/' . date('Y') . '/' . date('m') . '/';
+            foreach($request->file('images') as $image) {
+                $file = date('dHis') . rand('1000','9999') . '.' .  $image->extension();
+                if($image->move(public_path() . $path, $file)){
+                    $img['article_id'] = $id;
+                    $img['file'] = $path . $file;
+                    $img['size'] = round($image->getClientSize() / 1024);
+                    Image::create($img);
+                }
+            }
+        }
+
+        return redirect('/result')->with('message', '信息保存成功，管理员审核通过后，就会在网站上显示！');
+    }
+
+
+    public function destroy($id,Request $request){
+        // dd($request->input('id'));
+        // dd($request->session());
+        if(! \Session::has("auth.$id") ) {
+            return redirect('/message')->with('message', '您无权访问该页面！');
+        }
+        $item = Image::find($request->input('id'));
+        // dd($item);
+        unlink(public_path() . $item->file);
+        if($item->delete()){
+            return $request->input('id');
+        }
+    }
+
+    public function result(){
+        if (!session('message'))
+        {
+          return redirect('/');exit;
+        }
+        return view('home.info.result', ['message' => session('message')]);
     }
 }

@@ -35,7 +35,7 @@ $(document).ready(function(){
 			  <h4>{{ $message }}</h4>
 		  <br />
 		  <p>
-			  <a href="/create" class="btn btn-default" role="button">&nbsp;&nbsp;继续发布&nbsp;&nbsp;</a>
+			  <a href="/post" class="btn btn-default" role="button">&nbsp;&nbsp;继续发布&nbsp;&nbsp;</a>
 			  <a href="/" class="btn btn-default" role="button">&nbsp;&nbsp;返回首页&nbsp;&nbsp;</a>
 		  </p>
 

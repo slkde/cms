@@ -23,7 +23,7 @@ Route::group(['namespace'=>'Home'], function(){
     Route::resource('/post', 'PostController');
     Route::post('/comment', 'PostController@comment')->name('comment');
     Route::post('/article/auth', 'PostController@auth')->name('auth');
-    Route::get('/post/result', 'PostController@result')->name('result');
+    Route::get('/result', 'PostController@result')->name('result');
 });
 
 //后台页面路由

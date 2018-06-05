@@ -27,8 +27,9 @@
 
 		$.ajax({
            type:'POST',
-           url:'/deletePhoto',
-           data:'_token=<?php echo csrf_token() ?>&infoId=' + infoId + '&photoId=' + photoId,
+           url:'/post/'+ infoId,
+          //  data:'_token=<?php echo csrf_token() ?>&infoId=' + infoId + '&photoId=' + photoId,
+					data:{'_token':'{{csrf_token()}}', 'article_id':infoId, 'id': photoId, '_method':'delete'},
            success:function(data){
               if (data) {
               	$("#photo" + data).remove();
@@ -169,8 +170,8 @@ $(document).ready(function(){
 				   <div class="form-group @if ($errors->has('images.0') || $errors->has('images.1') | $errors->has('images.2')) has-error @endif">
 				    <label for="inputPassword3" class="col-md-2 control-label">图片</label>
 				    <div class="col-md-4">
-				    	@for ($i = count($item->photos); $i < 3; $i++)
-<input data-input="false" data-iconName="icon-folder-open-alt" data-size="sm" data-buttonText="请选择" data-buttonName="btn-primary" class="filestyle" type="file" name="images[]"><br />
+				    @for ($i = count($item->photos); $i < 3; $i++)
+							<input data-input="false" data-iconName="icon-folder-open-alt" data-size="sm" data-buttonText="请选择" data-buttonName="btn-primary" class="filestyle" type="file" name="images[]"><br />
 						@endfor
 						@if($errors->has('images.0') || $errors->has('images.1') || $errors->has('images.2')) <p class="text-warning small">上传失败，确认上传的文件为图像且图像小于1M</p> @endif
 						

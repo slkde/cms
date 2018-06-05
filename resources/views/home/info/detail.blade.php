@@ -129,7 +129,7 @@ $(document).ready(function(){
               <div class="lead">
               @if ($item->expireDays != '已经过期')
               <ul class="list-inline text-center">
-              @foreach ($item->images() as $photo)                
+              @foreach ($item->images as $photo)                
               <li><a target="_blank" href="{{ $photo->file }}"><img class="img-rounded" width="120" src="{{ $photo->file }}" ></a></li>
               @endforeach
               </ul>
@@ -172,7 +172,7 @@ $(document).ready(function(){
                         <div class="panel panel-default">
                           <div class="panel-heading small"><i class="icon-caret-right"></i><strong>管理信息</strong></div>
                           <div class="panel-body">
-                                @if (Session::has("auth$item->id"))
+                                @if (Session::has("auth.$item->id"))
                                 <center>
                                 <a href="{{ url('/post'. '/' . $item->id .'/edit') }}"  class="btn btn-default btn-sm" role="button">&nbsp;修&nbsp;改&nbsp;信&nbsp;息</a>
 
