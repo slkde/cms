@@ -102,14 +102,14 @@ $(document).ready(function(){
     <div  class="col-md-12">
         <div class="panel panel-default">
           <div class="panel-heading">
-            @if ($item->expireDays == '已经过期')
+            @if (strtotime ('+' . $item->expired_days . ' day', strtotime($item->created_at)) < time())
             <del><h3 class="text-center">{{ $item->title }}</h3></del>
             @else
             <h3 class="text-center">{{ $item->title }}</h3>
             @endif
             
             <p class="text-center small">
-            @if($item->isMobile == 'YES')
+            @if($item->isMobile == 'Y')
               <div class="text-muted pull-left">
                 编号：{{$item->id}}
                 <i class="icon-time"></i> {{ date('Y-m-d', strtotime( $item->created_at)) }}
@@ -127,7 +127,7 @@ $(document).ready(function(){
           </div>
           <div class="panel-body">
               <div class="lead">
-              @if ($item->expireDays != '已经过期')
+              @if (strtotime ('+' . $item->expired_days . ' day', strtotime($item->created_at)) < time())
               <ul class="list-inline text-center">
               @foreach ($item->images as $photo)                
               <li><a target="_blank" href="{{ $photo->file }}"><img class="img-rounded" width="120" src="{{ $photo->file }}" ></a></li>
@@ -162,7 +162,7 @@ $(document).ready(function(){
                                       
                                     </p>
                                     <p><i class="icon-building"></i> 区域：{{ $item->category->name }}</p>
-                                    @if ($item->isMobile == 'YES')<a href="tel:{{ $item->tel }}" class="btn btn-primary btn-block" role="button" ><i class="icon-pencil"></i> 点击拔打电话</a>@endif
+                                    @if ($item->isMobile == 'Y')<a href="tel:{{ $item->tel }}" class="btn btn-primary btn-block" role="button" ><i class="icon-pencil"></i> 点击拔打电话</a>@endif
                                     <br />
                               </div>
                             </div>
@@ -200,7 +200,7 @@ $(document).ready(function(){
                         </div>
                 </div>
               </div>
-              @if ($item->expireDays != '已经过期' || !$item->comments->isEmpty())
+              @if ((strtotime ('+' . $item->expired_days . ' day', strtotime($item->created_at)) > time()) || !$item->comments->isEmpty())
               <div class="panel panel-default">
                 <div class="panel-heading small"><i class="icon-caret-right"></i><strong>网友咨询</strong></div>
                 <div class="panel-body">

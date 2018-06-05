@@ -5,7 +5,7 @@
 @section('content')
 
 @push('css')
-<link rel="stylesheet" href="/bootstrap-select/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="/static/home/bootstrap-select/css/bootstrap-select.min.css">
 <style type="text/css">
 	html {
     	overflow-y:scroll;
@@ -14,14 +14,14 @@
 @endpush
 
 @push('js')
-<script type="text/javascript" src="/bootstrap-select/js/bootstrap-select.min.js"> </script>
-<script type="text/javascript" src="/bootstrap-filestyle/src/bootstrap-filestyle.min.js"> </script>
+<script type="text/javascript" src="/static/home/bootstrap-select/js/bootstrap-select.min.js"> </script>
+<script type="text/javascript" src="/static/home/bootstrap-filestyle/src/bootstrap-filestyle.min.js"> </script>
 <script type="text/javascript">
-$(document).ready(function(){
-	$("#captchaImage").click(function(){
-		this.src='/captcha?d='+Math.random();
-	});
-});
+// $(document).ready(function(){
+// 	$("#captchaImage").click(function(){
+// 		this.src='/captcha?d='+Math.random();
+// 	});
+// });
 </script>
 @endpush
 <ol class="breadcrumb small">

@@ -19,6 +19,7 @@ Route::group(['namespace'=>'Home'], function(){
     Route::get('/about', 'HomeController@about')->name('about');
     Route::post('/getinfo', 'HomeController@getinfo')->name('getinfo');
     Route::get('/statement', 'HomeController@statement')->name('statement');
+    Route::get('/message', 'HomeController@message')->name('message');
 
     Route::resource('/post', 'PostController');
     Route::post('/comment', 'PostController@comment')->name('comment');

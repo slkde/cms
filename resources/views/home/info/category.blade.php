@@ -74,9 +74,9 @@ $(document).ready(function(){
     <br class="visible-xs" />
     <div class="col-md-3">
         <div class="list-group small">
-            <a href="#" class="list-group-item disabled">{{ $category->getparent  ? $category->getparent->name : $category->name }}分类</a>
-            @foreach ($category->getchild as $cat)
-            <a href="{{ $cat->id }}" class="list-group-item {{ $category->id == $cat->category_id ? 'active' : '' }}">
+            <a href="#" class="list-group-item disabled">{{ $category->getparent ? $category->getparent->name : $category->name }}分类</a>
+            @foreach ($categorys as $cat)
+            <a href="{{ $cat->id }}" class="list-group-item {{ $category->id == $cat->id ? 'active' : '' }}">
                 {{ $cat->name }}
             </a>
             @endforeach

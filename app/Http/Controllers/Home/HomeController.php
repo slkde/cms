@@ -26,7 +26,15 @@ class HomeController extends Controller
     public function category($id){
         // $menu = Category::where('pid', 0)->get();
         $category =  Category::find($id);
-        // $category =  Category::where('pid', $id)->get();
+        // dd(Category::where('pid', $id)->get()->isEmpty());
+        if(!count($category->getparent)){
+            $categorys =  $category->getchild;
+        }else{
+            $categorys =  Category::find($category->getparent->id)->getchild;
+        }
+        // dd($categorys);
+        // $category =  Category::find($id);
+        // $categorys =  Category::where('pid', $id)->get();
         $ids =  Category::getids($id);
         // $ids =  Category::select(DB::raw('GROUP_CONCAT(id) as ids'))->where('pid', $id)->get();
         // dd($ids);
@@ -35,7 +43,7 @@ class HomeController extends Controller
         $breadcrumb = '';
         // dd($category->getparent->name);
         $isShowMore = $items->count() < 1 ? false : true;
-        return view('home.info.category', compact('menu', 'items', 'category', 'isShowMore', 'breadcrumb'));
+        return view('home.info.category', compact('menu', 'items', 'category', 'categorys', 'isShowMore', 'breadcrumb'));
     }
 
     //载入更多

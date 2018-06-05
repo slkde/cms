@@ -92,7 +92,7 @@ class PostController extends Controller
     }
 
     public function edit($id){
-        if(! session("auth$id")) {
+        if(! session("auth.$id")) {
             return redirect('/message')->with('message', '您无权访问该页面！');
         }
         $item = Article::find($id);
@@ -140,11 +140,11 @@ class PostController extends Controller
         // dd($request->input('id'));
         // dd($request->session());
         if(! \Session::has("auth.$id") ) {
-            return redirect('/message')->with('message', '您无权访问该页面！');
+            return ['message', '您无权访问该页面！'];
         }
         $item = Image::find($request->input('id'));
         // dd($item);
-        unlink(public_path() . $item->file);
+        @unlink(public_path() . $item->file);
         if($item->delete()){
             return $request->input('id');
         }
@@ -153,7 +153,7 @@ class PostController extends Controller
     public function result(){
         if (!session('message'))
         {
-          return redirect('/');exit;
+          return redirect('/');
         }
         return view('home.info.result', ['message' => session('message')]);
     }
