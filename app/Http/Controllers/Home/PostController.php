@@ -59,7 +59,7 @@ class PostController extends Controller
                 }
             }
         }
-        \Cookie::queue("hit$art->id", true, 5);
+        // \Cookie::queue("hit$art->id", true, 5);
         return redirect()->route('result')->with('message', '信息提交成功，审核通过后，就会在网站上显示！');
     }
 
