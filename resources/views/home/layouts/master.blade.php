@@ -62,14 +62,14 @@
                   <p>集安信息网，家乡人自己的生活信息平台！</p>
                                       <p>
                         <a target="_blank" href="/about">关于</a> &nbsp; 
-                        <a target="_blank" href="/create">发布</a> &nbsp;                         
+                        <a target="_blank" href="/post">发布</a> &nbsp;                         
                         <a target="_blank" href="/tp">置顶</a> &nbsp; 
                         <a target="_blank" href="/statement">声明</a> &nbsp; 
                         <a target="_blank" href="/blog">博客</a> &nbsp; 
                         <a class="hidden-xs" target="_blank" href="sitemap.xml">Sitemap</a>
 
                     </p>
-                  <p>Copyright @ 2011-2017 集安小江南信息网 吉ICP备11004057号</p>
+                  <p>Copyright @ 2011-2018 集安小江南信息网 吉ICP备11004057号</p>
                   @if (Request::path() == '/')
                     <ul class="list-inline hidden-xs">
                             <li><strong>友情链接：</strong></li>

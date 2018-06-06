@@ -29,8 +29,10 @@ class HomeController extends Controller
         // dd(Category::where('pid', $id)->get()->isEmpty());
         if(!count($category->getparent)){
             $categorys =  $category->getchild;
+            $breadcrumb = '<li class="active">'.$category->name.'</li>';
         }else{
             $categorys =  Category::find($category->getparent->id)->getchild;
+            $breadcrumb = '<li><a href="/category/'.$category->getparent->id.'">'.$category->getparent->name.'</a></li><li class="active">'.$category->name.'</li>';
         }
         // dd($categorys);
         // $category =  Category::find($id);
@@ -40,7 +42,7 @@ class HomeController extends Controller
         // dd($ids);
         $items = Article::wherein('category_id', $ids)->where('is_verify', '=', 'Y')->orderBy('category_top_expired', 'desc')->orderBy('index_top_expired', 'desc')->latest('created_at')->Paginate(50);
         // dd($items);
-        $breadcrumb = '';
+        // $breadcrumb = '';
         // dd($category->getparent->name);
         $isShowMore = $items->count() < 1 ? false : true;
         return view('home.info.category', compact('menu', 'items', 'category', 'categorys', 'isShowMore', 'breadcrumb'));
@@ -82,12 +84,20 @@ class HomeController extends Controller
         }
     }
 
-
-    public function info($id){
+    //详细信息
+    public function info($id, Request $request){
         // $menu = Category::where('pid', 0)->get();
         $item = Article::find($id);
-        // dd($item->comments);
-        $breadcrumb = '';
+        $category = Category::find($item->category_id);
+        if(!count($category->getparent)){
+            $breadcrumb = '<li class="active">'.$category->name.'</li>';
+        }else{
+            $breadcrumb = '<li><a href="/category/'.$category->getparent->id.'">'.$category->getparent->name.'</a></li><li class="active">'.$category->name.'</li>';
+        }
+        if(! $request->cookie("hit$id")){
+            $item->increment('hits', rand(1, 7));
+            \Cookie::queue("hit$id", true, 5);
+        }  
         return view('home.info.detail', compact('item', 'breadcrumb', 'menu'));
     }
 
@@ -101,5 +111,17 @@ class HomeController extends Controller
     public function statement(){
         // $menu = Category::where('pid', 0)->get();
         return view('home.about.statement', compact('menu'));
+    }
+
+    //
+    public function tp(){
+        return view('home.index.msgtop');
+    }
+
+    //搜索
+    public function search($key){
+        // $items = Article::where('title', 'like', "%$key%")->orWhere('tel', 'like', "%$key%")->orWhere('linkman', 'like', "%$key%")->Paginate(50);
+        $items = Article::where([['title', 'like', "%$key%"],['is_verify', '=', 'Y']])->orWhere([['tel', 'like', "%$key%"],['is_verify', '=', 'Y']])->orWhere([['linkman', 'like', "%$key%"],['is_verify', '=', 'Y']])->Paginate(100);
+        return view('home.index.search', compact('items'));
     }
 }

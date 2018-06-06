@@ -168,37 +168,39 @@ $(document).ready(function(){
                             </div>
                             @endif
                 </div>
-                <div class="col-md-6">
-                        <div class="panel panel-default">
-                          <div class="panel-heading small"><i class="icon-caret-right"></i><strong>管理信息</strong></div>
-                          <div class="panel-body">
-                                @if (Session::has("auth.$item->id"))
-                                <center>
-                                <a href="{{ url('/post'. '/' . $item->id .'/edit') }}"  class="btn btn-default btn-sm" role="button">&nbsp;修&nbsp;改&nbsp;信&nbsp;息</a>
+                @if (strtotime ('+' . $item->expired_days . ' day', strtotime($item->created_at)) > time())
+                  <div class="col-md-6">
+                          <div class="panel panel-default">
+                            <div class="panel-heading small"><i class="icon-caret-right"></i><strong>管理信息</strong></div>
+                            <div class="panel-body">
+                                  @if (Session::has("auth.$item->id"))
+                                  <center>
+                                  <a href="{{ url('/post'. '/' . $item->id .'/edit') }}"  class="btn btn-default btn-sm" role="button">&nbsp;修&nbsp;改&nbsp;信&nbsp;息</a>
 
-                                <a class="btn btn-default btn-sm" role="button" class="text-top small" tabindex="0" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" data-content="信息过期后会自动失效，无需手动删除。">&nbsp;删&nbsp;除&nbsp;信&nbsp;息</a>
-                                </center>
-                                @else
-                                <form class="form-inline" action="/article/auth" method="post">
-                                  <div class="form-group">
-                                    <label class="sr-only">&nbsp;</label>
-                                    <p class="form-control-static small">管理密码：</p>
-                                  </div>
-                                  <div class="form-group @if (Session::has('msgAuth')) has-error  @endif">
-                                    <label for="passwd" class="sr-only">Password</label>
-                                    <input type="text" class="form-control" id="passwd" name="password">
-                                    <input type="hidden" name="id" value="{{ $item->id }}">                   
-                                  </div>
-                                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                  <button type="submit" class="btn btn-primary btn-sm">修改/删除</button>
-                                  @if (Session::has('msgAuth'))
-                                     <span class="text-warning small">{{ Session::get('msgAuth') }}</span>
+                                  <a class="btn btn-default btn-sm" role="button" class="text-top small" tabindex="0" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" data-content="信息过期后会自动失效，无需手动删除。">&nbsp;删&nbsp;除&nbsp;信&nbsp;息</a>
+                                  </center>
+                                  @else
+                                  <form class="form-inline" action="/article/auth" method="post">
+                                    <div class="form-group">
+                                      <label class="sr-only">&nbsp;</label>
+                                      <p class="form-control-static small">管理密码：</p>
+                                    </div>
+                                    <div class="form-group @if (Session::has('msgAuth')) has-error  @endif">
+                                      <label for="passwd" class="sr-only">Password</label>
+                                      <input type="text" class="form-control" id="passwd" name="password">
+                                      <input type="hidden" name="id" value="{{ $item->id }}">                   
+                                    </div>
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    <button type="submit" class="btn btn-primary btn-sm">修改/删除</button>
+                                    @if (Session::has('msgAuth'))
+                                      <span class="text-warning small">{{ Session::get('msgAuth') }}</span>
+                                    @endif
+                                  </form>
                                   @endif
-                                </form>
-                                @endif
+                            </div>
                           </div>
-                        </div>
-                </div>
+                  </div>
+                @endif
               </div>
               @if ((strtotime ('+' . $item->expired_days . ' day', strtotime($item->created_at)) > time()) || !$item->comments->isEmpty())
               <div class="panel panel-default">
@@ -227,7 +229,7 @@ $(document).ready(function(){
                               <p>暂无留言</p>
                           @endforelse
                         </div>
-                        @if ($item->expireDays != '已经过期')
+                        @if (strtotime ('+' . $item->expired_days . ' day', strtotime($item->created_at)) > time())
                             <form class="small" role="form" action="/comment" method="post">
                               <div class="form-group @if($errors->has('content')) has-error  @endif" id="content-form-group">
                                 <textarea class="form-control" rows="3" id="content" name="content">{{ old('content') }}</textarea>

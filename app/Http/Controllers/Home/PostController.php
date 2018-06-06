@@ -59,7 +59,7 @@ class PostController extends Controller
                 }
             }
         }
-
+        \Cookie::queue("hit$art->id", true, 5);
         return redirect()->route('result')->with('message', '信息提交成功，审核通过后，就会在网站上显示！');
     }
 
@@ -81,7 +81,6 @@ class PostController extends Controller
         // $item = Article::find($input['id'])->where('manage_passwd', $input['password'])->get()->first();
         $item = Article::where('id', $id)->where('manage_passwd', $input['password'])->get()->first();
         if(!$item){
-            // dd('密码错误！');
             return redirect()->back()->with('msgAuth' , '密码错误！');
         }
         $request->session()->put("auth.$id", true);
