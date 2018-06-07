@@ -17,7 +17,7 @@
   <div  class="col-md-12">
   		<h3>关于网站</h3>
   		<hr />
-  		<center><a href="/"><img width="350" alt="集安信息网" src="/uploads/homepage.png" class="img-thumbnail"></a></center>
+  		<center><a href="/"><img width="350" alt="集安信息网" src="/upload/homepage.png" class="img-thumbnail"></a></center>
 
   		<p><h4>您好，欢迎访问集安信息网！</h4></p>
   		<p>集安信息网开通于2011年7月，主要栏目设置：房产、人才、供求、车辆、交友、招生、出兑、服务、商家、资讯。</p>

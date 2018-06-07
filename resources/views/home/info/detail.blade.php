@@ -127,7 +127,7 @@ $(document).ready(function(){
           </div>
           <div class="panel-body">
               <div class="lead">
-              @if (strtotime ('+' . $item->expired_days . ' day', strtotime($item->created_at)) < time())
+              @if ($item->expireDays != '已经过期')
               <ul class="list-inline text-center">
               @foreach ($item->images as $photo)                
               <li><a target="_blank" href="{{ $photo->file }}"><img class="img-rounded" width="120" src="{{ $photo->file }}" ></a></li>
@@ -140,7 +140,7 @@ $(document).ready(function(){
               <hr />
               <div class="row">
                 <div class="col-md-6">
-                            @if (strtotime ('+' . $item->expired_days . ' day', strtotime($item->created_at)) < time())
+                            @if ($item->expireDays == '已经过期')
                               <div class="alert alert-danger alert-dismissible fade in" role="alert">
                                 <strong>该信息已经过期，联系方式已经被隐藏。</strong>
                               </div>
@@ -168,7 +168,7 @@ $(document).ready(function(){
                             </div>
                             @endif
                 </div>
-                @if (strtotime ('+' . $item->expired_days . ' day', strtotime($item->created_at)) > time())
+                @if ($item->expireDays != '已经过期')
                   <div class="col-md-6">
                           <div class="panel panel-default">
                             <div class="panel-heading small"><i class="icon-caret-right"></i><strong>管理信息</strong></div>
@@ -202,7 +202,7 @@ $(document).ready(function(){
                   </div>
                 @endif
               </div>
-              @if ((strtotime ('+' . $item->expired_days . ' day', strtotime($item->created_at)) > time()) || !$item->comments->isEmpty())
+              @if (($item->expireDays != '已经过期') || !$item->comments->isEmpty())
               <div class="panel panel-default">
                 <div class="panel-heading small"><i class="icon-caret-right"></i><strong>网友咨询</strong></div>
                 <div class="panel-body">
@@ -229,7 +229,7 @@ $(document).ready(function(){
                               <p>暂无留言</p>
                           @endforelse
                         </div>
-                        @if (strtotime ('+' . $item->expired_days . ' day', strtotime($item->created_at)) > time())
+                        @if ($item->expireDays != '已经过期')
                             <form class="small" role="form" action="/comment" method="post">
                               <div class="form-group @if($errors->has('content')) has-error  @endif" id="content-form-group">
                                 <textarea class="form-control" rows="3" id="content" name="content">{{ old('content') }}</textarea>

@@ -1,5 +1,41 @@
 @extends('home.layouts.master')
 @section('title', '集安信息网')
+@push('js')
+<script type="text/javascript">
+  $(document).ready(function(){
+    var page = 1;
+    $("#readmore").click(function () {
+        page++;
+        load_contents(page);
+    });
+
+    function load_contents(page){
+        $.ajax({
+          type: 'post',
+          url: '/getinfo',
+          data:{'_token':'{{csrf_token()}}', 'page':page},
+          beforeSend: function() {
+              $("#readmore").hide();
+              $("#readmorecontainer").append("<span class=\"small\" id=\"loading\"><i class=\"icon-spinner icon-2x icon-spin\"></i>&nbsp;加载中......</span>");
+          },
+          success: function(html){
+              if(html)
+              {
+                  $("#list").append(html);
+                  //$("html, body").animate({scrollTop: $("#readmore").offset().top}, 800);
+              } else {
+                  $("#readmore").remove();
+                  $("#readmorecontainer").html('数据已经全部显示');
+              }
+              $("#loading").remove();
+              $("#readmore").show();
+          },
+          dataType: 'html'
+        });
+    }
+});
+</script>
+@endpush
 @section('content')
 @push('custom')
 <!-- Modal -->
@@ -39,7 +75,7 @@
                       <a class="visible-xs-inline small" href="/post">发布信息</a>&nbsp;
                   </div>
             </div>
-            <ul class="list-group">
+            <ul class="list-group" id="list">
                   @foreach ($latestItems as $item)
                       <li class="list-group-item ">
                       @if($item->index_top_expired > now())<span class="label label-warning lb-md">顶</span>@else <i class="icon-angle-right"></i>@endif
@@ -48,7 +84,7 @@
                                  {{ str_limit($item->title, 40) }}
                             </a>
                         </strong>
-                        @if($item->tel != null)<i class="icon-mobile-phone icon-large"></i>@endif
+                        @if($item->is_mobile == 'Y')<i class="icon-mobile-phone icon-large"></i>@endif
                           <a target="_blank" class="small text-info hidden-xs" href="/category/{{ $item->category->id }}">{{ $item->category->name }}</a>
                           <span class="small text-muted hidden-xs">{{ $item->district->name }}</span>
                         @if(date('Y-m-d',strtotime($item->created_at)) == date('Y-m-d'))
@@ -60,6 +96,9 @@
                   @endforeach
               </ul>
           </div>
+          {{-- @if ($isShowMore == true) --}}
+          <div align="center" id="readmorecontainer"><input id="readmore" class="btn btn-info btn-default btn-block" type="button" value=" 加载更多 "></div>
+          {{-- @endif --}}
     </div>
   <div class="col-md-4" id="container-main-right">
          <div class="panel panel-default hidden-xs">

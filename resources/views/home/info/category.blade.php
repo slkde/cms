@@ -56,7 +56,7 @@ $(document).ready(function(){
                     <span @if($info->category_top_expired > now() or $info->index_top_expired > now()) style="color: #c81721;" @endif>
                     {{$info->title}}
                     </span>
-                    @if($info->tel != null) <i class="icon-mobile-phone icon-large pull-right"></i>@endif
+                    @if($info->is_mobile == 'Y') <i class="icon-mobile-phone icon-large pull-right"></i>@endif
                 </h4>
                 <span class="list-group-item-text small text-muted">{{ str_limit($info->content, 80)}}</span>
                 @if(date('Y-m-d',strtotime($info->created_at)) == date('Y-m-d'))
