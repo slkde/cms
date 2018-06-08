@@ -75,6 +75,7 @@
             $('.sidebar-menu>li').find('a[href="' + scheme_less_url + '"]').closest('li').addClass('active');  //一级栏目[不含二级链接]高亮
         });
     </script>
+    @stack('js')
 </div>
 </body>
 </html>

@@ -34,7 +34,9 @@ Route::group(['namespace'=>'Admin', 'prefix'=>'admin', 'middleware'=>'App\Http\M
     Route::get('/', 'AdminShowController@index')->name('adminindex');
     Route::resource('/admin', 'AdminController');
     Route::resource('/article', 'ArticleController');
+    Route::post('/article/verify', 'ArticleController@verify');
     Route::resource('/comment', 'CommentController');
+    Route::post('/comment/verify', 'CommentController@verify');
     Route::resource('/config', 'ConfigController');
     Route::resource('/user', 'UserController');
 });

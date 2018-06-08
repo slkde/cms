@@ -1,4 +1,40 @@
 @extends('admin.app')
+@push('js')
+<script>
+    $(document).ready(function(){
+        //审核
+        $(".verify").click(function(){
+            var verify = $(this);
+            var value = verify.parent().attr('aval') == 'N' ? 'Y':'N' ;
+            $.post("{{ url('/admin/comment/verify') }}",{'_token':'{{ csrf_token() }}','id':verify.parent().attr('aid'),'is_verify':value},function(data){
+                if(data.static){
+                    if(value == 'Y'){
+                        verify.parent().attr({'aval':value});
+                        verify.attr({'style':'font-size: 16px;color: ;'});
+                        verify.children().attr({'title':'已审核'});
+                    }else{
+                        verify.parent().attr({'aval':value});
+                        verify.attr({'style':'font-size: 16px;color: #dd4b39;'});
+                        verify.children().attr({'title':'未审核'});
+                    }
+                }
+            });
+        });
+        //删除
+        $('.del').click(function(){
+            var del = $(this);
+            $.post("/admin/comment/" + del.parent().attr('aid'),{'_token':'{{ csrf_token() }}','_method':'delete'},function(data){
+                if(data.static){
+                    del.parent().parent().remove();
+                }
+            });
+        });
+        
+    });
+
+</script>
+
+@endpush
 @section('content-header')
     <h1>
         内容管理
@@ -35,7 +71,7 @@
                 <thead>
                 <tr>
                     <th>操作</th>
-                    <th>评论</th>
+                    <th>评论信息</th>
                     <th>评论内容</th>
                     <th>发布时间</th>
                 </tr>
@@ -45,11 +81,12 @@
                 <tbody>
                 @foreach($data as $comment)
                 <tr>
-                    <td>
+                    <td aid="{{$comment->id}}" aval="{{ $comment->is_verify }}">
+                        <a style="font-size: 16px;color: #dd4b39;" class="del" href="javascrtip:;"><i class="fa fa-fw fa-trash-o" title="删除"></i></a>
                         <a style="font-size: 16px" href="#"><i class="fa fa-fw fa-pencil" title="修改"></i></a>
-                        <a style="font-size: 16px;color: #dd4b39;" href="#"><i class="fa fa-fw fa-trash-o" title="删除"></i></a>
+                        <a style="font-size: 16px;{{ $comment->is_verify == 'N' ? 'color: #dd4b39;' :'' }}" class="verify" href="javascrtip:;"><i class="fa fa-fw fa-pie-chart" title="审核"></i></a>
                     </td>
-                    <td class="text-muted">{{ $comment->article->title }}</td>
+                    <td class="text-muted"><a target="_blank" href="/info-{{$comment->article_id}}.html">{{ $comment->article->title or  $comment->article_id}}</a></td>
                     <td class="text-green">{{ $comment->content }}</td>
                     <td class="text-navy">{{ $comment->created_at }}</td>
                 </tr>

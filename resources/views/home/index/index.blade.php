@@ -104,7 +104,7 @@
          <div class="panel panel-default hidden-xs">
           <div class="panel-body small text-center ">
               <p><strong>今天是 {{ date("Y年m月d日") }} 祝您一切顺利！</strong></p>
-              <div><img width="100" src="qrcode.png"></div>
+              <div><img width="100" src="{{ asset('/upload/qrcode.png') }}"></div>
               <a href="/post" class="btn btn-primary" role="button"><i class="icon-pencil"></i> 快速发布信息</a>
               <a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-primary" role="button"><i class="icon-search"></i> 查找我的信息</a>              
           </div>
