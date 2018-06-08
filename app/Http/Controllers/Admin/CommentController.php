@@ -10,7 +10,6 @@ class CommentController extends Controller
 {
     //
     public function index(){
-        dd(\Auth::user()->id);
         $data = Comment::latest('created_at')->Paginate(20);
         return view('admin.comments.index', compact('data'));
     }

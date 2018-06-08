@@ -1,4 +1,65 @@
 @extends('admin.app')
+@push('js')
+<script type="text/javascript">
+    $(document).ready(function(){
+	$("#make-sitemap").click(function(){
+		$.ajax({
+           type:'POST',
+           url:'/admin/sitemap',
+           data:'_token=<?php echo csrf_token() ?>',
+    			beforeSend: function() {
+            $("#msg").html("");
+    				$("#sitemap").html("doing......");
+    			},           
+           success:function(data){
+           		if(data)
+           		{
+           		$("#sitemap").html("生成Sitemap");
+                $("#msg").html("<div class=\"alert alert-success\" role=\"alert\"><strong>提示!</strong> <a target='_blank' href='http://www.ja168.net/sitemap.xml'>查看sitemap</a>.</div>");
+           		}
+           }
+        });
+	});
+
+  $("#clear-log").click(function(){
+    $.ajax({
+           type:'POST',
+           url:'/admin/clearlog',
+           data:'_token=<?php echo csrf_token() ?>',
+            beforeSend: function() {
+              $("#msg").html("");
+              $("#log").html("doing......");
+            },           
+           success:function(data){
+              if(data)
+              {
+                $("#log").html("清空日志");
+                $("#msg").html("<div class=\"alert alert-success\" role=\"alert\"><strong>提示!</strong> 日志清除成功.</div>");
+              }
+           }
+        });
+  });
+  $("#clear-cache").click(function(){
+    $.ajax({
+           type:'POST',
+           url:'/admin/clearcache',
+           data:'_token=<?php echo csrf_token() ?>',
+            beforeSend: function() {
+              $("#msg").html("");
+              $("#cache").html("doing......");
+            },           
+           success:function(data){
+              if(data)
+              {
+                $("#cache").html("清空缓存");
+                $("#msg").html("<div class=\"alert alert-success\" role=\"alert\"><strong>提示!</strong> 缓存清除成功.</div>");
+              }
+           }
+        });
+  });
+});
+</script>
+@endpush
 @section('content-header')
     <section class="content-header">
         <h1>
@@ -32,6 +93,8 @@
             @endforeach
         </div>
 
+
+        
         <div class="row">
             <section class="col-lg-7 connectedSortable">
                 <div class="box box-info">
@@ -64,76 +127,32 @@
                 </div>
             </section>
 
-            <section class="col-lg-5 connectedSortable">
-                <!-- Info Boxes Style 2 -->
-                <div class="info-box bg-yellow">
-                    <span class="info-box-icon"><i class="ion ion-ios-pricetag-outline"></i></span>
-
-                    <div class="info-box-content">
-                        <span class="info-box-text">Inventory</span>
-                        <span class="info-box-number">5,200</span>
-
-                        <div class="progress">
-                            <div class="progress-bar" style="width: 50%"></div>
+            <section class="col-md-3">
+                    <!-- Application buttons -->
+                    <div class="box">
+                        <div class="box-header">
+                        <h3 class="box-title">功能</h3>
                         </div>
-                        <span class="progress-description">
-                    50% Increase in 30 Days
-                  </span>
-                    </div>
-                    <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-                <div class="info-box bg-green">
-                    <span class="info-box-icon"><i class="ion ion-ios-heart-outline"></i></span>
-
-                    <div class="info-box-content">
-                        <span class="info-box-text">Mentions</span>
-                        <span class="info-box-number">92,050</span>
-
-                        <div class="progress">
-                            <div class="progress-bar" style="width: 20%"></div>
+                        <div class="box-body">
+                        {{-- <p>Add the classes <code>.btn.btn-app</code> to an <code>&lt;a></code> tag to achieve the following:</p> --}}
+                        <a class="btn btn-app" id="make-sitemap">
+                            <span class="badge bg-green">300</span>
+                            <i class="fa fa-barcode"></i> <span id="sitemap">生成sitemap</span>
+                        </a>
+                        <a class="btn btn-app" id="clear-log">
+                            <span class="badge bg-purple">891</span>
+                            <i class="fa fa-users"></i> <span id="log">清空日志</span>
+                        </a>
+                        <a class="btn btn-app" id="clear-cache">
+                            <span class="badge bg-red">67</span>
+                            <i class="fa fa-inbox"></i> <span id="cache">清空缓存</span>
+                        </a>
                         </div>
-                        <span class="progress-description">
-                    20% Increase in 30 Days
-                  </span>
+                        <!-- /.box-body -->
                     </div>
-                    <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-                <div class="info-box bg-red">
-                    <span class="info-box-icon"><i class="ion ion-ios-cloud-download-outline"></i></span>
-
-                    <div class="info-box-content">
-                        <span class="info-box-text">Downloads</span>
-                        <span class="info-box-number">114,381</span>
-
-                        <div class="progress">
-                            <div class="progress-bar" style="width: 70%"></div>
-                        </div>
-                        <span class="progress-description">
-                    70% Increase in 30 Days
-                  </span>
-                    </div>
-                    <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-                <div class="info-box bg-aqua">
-                    <span class="info-box-icon"><i class="ion-ios-chatbubble-outline"></i></span>
-
-                    <div class="info-box-content">
-                        <span class="info-box-text">Direct Messages</span>
-                        <span class="info-box-number">163,921</span>
-
-                        <div class="progress">
-                            <div class="progress-bar" style="width: 40%"></div>
-                        </div>
-                        <span class="progress-description">
-                    40% Increase in 30 Days
-                  </span>
-                    </div>
-                    <!-- /.info-box-content -->
-                </div>
+                    <!-- /.box -->
             </section>
+
         </div>
     </section>
 @endsection

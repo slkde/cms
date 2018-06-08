@@ -186,18 +186,18 @@
                 </li>
 
 
-                {{-- <li class="treeview">
+                <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-table"></i> <span>表格统计</span>
+                        <i class="fa fa-table"></i> <span>系统日志</span>
                         <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="#"><i class="fa fa-circle-o"></i>用户表格</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o"></i>文章表格</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i>访问日志</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i>管理日志</a></li>
                     </ul>
-                </li> --}}
+                </li>
 
                 {{-- <li class="treeview">
                     <a href="#">
@@ -232,7 +232,7 @@
                     </ul>
                 </li> --}}
 
-                <li><a href="{{ url('/admin/config') }}"><i class="fa fa-book"></i> <span>网站配置</span></a></li>
+                {{-- <li><a href="{{ url('/admin/config') }}"><i class="fa fa-book"></i> <span>网站配置</span></a></li> --}}
 
                 {{-- <li class="header">LABELS</li>
                 <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
@@ -247,9 +247,9 @@
 @section('main-footer')
     <footer class="main-footer">
         <div class="pull-right hidden-xs">
-            <b>Version</b> 2.3.12
+            <b>Version</b> 0.2
         </div>
-        <strong>Copyright &copy; 2014-2017 <a href="https://github.com/GeekGhc" target="_blank">集安信息网</a></strong> All rights
+        <strong>Copyright &copy; 2011-2018 <a href="http://www.ja168.net" target="_blank">集安信息网</a></strong> All rights
         reserved.
     </footer>
 @endsection

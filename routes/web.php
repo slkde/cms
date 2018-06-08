@@ -34,12 +34,16 @@ Route::group(['namespace'=>'Admin', 'prefix'=>'admin', 'middleware'=>'App\Http\M
     Route::get('/', 'AdminShowController@index')->name('adminindex');
     Route::resource('/admin', 'AdminController');
     Route::resource('/article', 'ArticleController');
-    Route::post('/article/verify', 'ArticleController@verify');
+    Route::post('/article/verify', 'ArticleController@verify')->name('articleverify');
     Route::resource('/comment', 'CommentController');
-    Route::post('/comment/verify', 'CommentController@verify');
+    Route::post('/comment/verify', 'CommentController@verify')->name('commentverify');
     Route::resource('/config', 'ConfigController');
     Route::resource('/user', 'UserController');
     Route::resource('/profile', 'ProfileController');
+    Route::post('/sitemap', 'DashboardController@sitemap')->name('sitemap');
+    Route::post('/clearlog', 'DashboardController@clearlog')->name('clearlog');
+    Route::post('/clearcache', 'DashboardController@clearcache')->name('clearcache');
+    Route::get('/vlog', 'LogController@vlog')->name('vlog');
 });
 //后台登陆路由
 Route::get('/admin/login', 'Admin\AdminShowController@login')->name('adminlogin');

@@ -10,6 +10,7 @@ use App\Models\Comment;
 use App\Models\Category;
 use App\Models\Image;
 use Jenssegers\Agent\Agent;
+use Cache;
 
 class HomeController extends Controller
 {
@@ -19,9 +20,13 @@ class HomeController extends Controller
         $userAgent  = new Agent();
         $isMobile = $userAgent->isMobile() ? 'Y': 'N';
         // 获取所有信息
-        $latestItems = Article::where('is_verify', '=', 'Y')->orderBy('index_top_expired', 'desc')->latest('created_at')->Paginate(50);
+        $latestItems = Cache::remember('home_latest_items', 30, function(){
+            return Article::where('is_verify', '=', 'Y')->orderBy('index_top_expired', 'desc')->latest('created_at')->Paginate(50);
+        });
         // 获取所有评论
-        $comments = Comment::where('is_verify', '=', 'Y')->latest('created_at')->Paginate(50);
+        $comments = Cache::remember('home_latest_comments', 1440, function () {
+            return Comment::where('is_verify', '=', 'Y')->latest('created_at')->Paginate(50);
+        });
         // $menu = Category::where('pid', 0)->get();
         return view('home.index.index', compact('latestItems', 'comments', 'isMobile'));
     }
@@ -44,9 +49,13 @@ class HomeController extends Controller
         // dd($categorys);
         // $category =  Category::find($id);
         // $categorys =  Category::where('pid', $id)->get();
-        $ids =  Category::getids($id);
+        $ids = Cache::remember('categoryIds' . $id, 60 * 24 * 365, function () use($id) {
+            return Category::getids($id);
+        });
         // $ids =  Category::select(DB::raw('GROUP_CONCAT(id) as ids'))->where('pid', $id)->get();
-        $items = Article::wherein('category_id', $ids)->where('is_verify', '=', 'Y')->orderBy('category_top_expired', 'desc')->orderBy('index_top_expired', 'desc')->latest('created_at')->Paginate(50);
+        $items = Cache::remember('category' . $id, 60 * 24, function () use($ids) {
+            return Article::wherein('category_id', $ids)->where('is_verify', '=', 'Y')->orderBy('category_top_expired', 'desc')->orderBy('index_top_expired', 'desc')->latest('created_at')->Paginate(50);
+        });
         // dd($items);
         // $breadcrumb = '';
         // dd($category->getparent->name);
@@ -131,7 +140,9 @@ class HomeController extends Controller
             abort(404);
         }
         //导航栏
-        $category = Category::find($item->category_id);
+        $category = Cache::remember('cat' . $id, 60 * 24 * 365, function () use($item) {
+            return Category::find($item->category_id);
+        });
         if(!count($category->getparent)){
             $breadcrumb = '<li class="active">'.$category->name.'</li>';
         }else{
@@ -174,7 +185,9 @@ class HomeController extends Controller
     //搜索
     public function search($key){
         // $items = Article::where('title', 'like', "%$key%")->orWhere('tel', 'like', "%$key%")->orWhere('linkman', 'like', "%$key%")->Paginate(50);
-        $items = Article::where([['is_verify', '=', 'Y'],['title', 'like', "%$key%"]])->orWhere([['is_verify', '=', 'Y'],['tel', 'like', "%$key%"]])->orWhere([['is_verify', '=', 'Y'],['linkman', 'like', "%$key%"]])->Paginate(100);
+        $items = Cache::remember('search' . $key, 1440, function () use ($key) {
+            return Article::where([['is_verify', '=', 'Y'],['title', 'like', "%$key%"]])->orWhere([['is_verify', '=', 'Y'],['tel', 'like', "%$key%"]])->orWhere([['is_verify', '=', 'Y'],['linkman', 'like', "%$key%"]])->Paginate(100);
+        });
         return view('home.index.search', compact('items'));
     }
 }
