@@ -39,7 +39,7 @@
                                maxlength="80">
                     </div>
                 </div>
-                <div class="tab-pane " id="tab_2">
+                <div class="tab-pane" id="tab_2">
                     <div class="form-group">
                         <label>新密码
                             <small class="text-red">*</small>

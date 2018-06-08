@@ -16,4 +16,8 @@ class UserController extends Controller
         $data = User::latest('created_at')->Paginate(10);
         return view('admin.users.index', compact('data'));
     }
+
+    public function edit($id){
+        return view('admin.users.edit');
+    }
 }

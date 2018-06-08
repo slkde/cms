@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Models\User;
 class AdminShowController extends Controller
 {
     /**
@@ -43,11 +43,11 @@ class AdminShowController extends Controller
         $input = $request->except('_token');
         if(!\Auth::attempt($input)){
             $request->flash();
-            return redirect()->back()->withError('用户名或密码错误');
+            return redirect()->back()->withError(['check' => '用户名或密码错误']);
         }
+        User::where(['id'=>\Auth::user()->id])->update(['ip'=>$request->ip()]);
         session(['admin' => $input['name']]);
         return redirect('admin');
-        
     }
 
     public function logout(){

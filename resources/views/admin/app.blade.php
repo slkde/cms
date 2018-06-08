@@ -105,7 +105,7 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">个人资料</a>
+                                    <a href="{{url('admin/profile')}}" class="btn btn-default btn-flat">个人资料</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="{{url('admin/logout')}}" class="btn btn-default btn-flat">退出</a>
@@ -164,7 +164,7 @@
                          </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{url('/admin/admin')}}"><i class="fa fa-circle-o"></i>管理员</a></li>
+                        {{-- <li><a href="{{url('/admin/admin')}}"><i class="fa fa-circle-o"></i>管理员</a></li> --}}
                         <li><a href="{{url('/admin/user')}}"><i class="fa fa-circle-o"></i>系统用户</a></li>
                         {{-- <li><a href="#"><i class="fa fa-circle-o"></i>用户角色</a></li>
                         <li><a href="#"><i class="fa fa-circle-o"></i>用户权限</a></li> --}}

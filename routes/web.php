@@ -39,6 +39,7 @@ Route::group(['namespace'=>'Admin', 'prefix'=>'admin', 'middleware'=>'App\Http\M
     Route::post('/comment/verify', 'CommentController@verify');
     Route::resource('/config', 'ConfigController');
     Route::resource('/user', 'UserController');
+    Route::resource('/profile', 'ProfileController');
 });
 //后台登陆路由
 Route::get('/admin/login', 'Admin\AdminShowController@login')->name('adminlogin');
