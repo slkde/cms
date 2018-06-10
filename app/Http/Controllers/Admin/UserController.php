@@ -27,9 +27,6 @@ class UserController extends Controller
         if(! $item){
             abort(404);
         }
-        if(! $item->id === \Auth::user()->id){
-            abort(404);
-        }
         $input = $request->except('_token','_method','password_confirmation');
         foreach($input as $k=>$v){
             if(empty($input[$k])){
