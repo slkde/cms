@@ -27,6 +27,7 @@ Route::group(['namespace'=>'Home'], function(){
     Route::post('/comment', 'PostController@comment')->name('comment');
     Route::post('/article/auth', 'PostController@auth')->name('auth');
     Route::get('/result', 'PostController@result')->name('result');
+    Route::post('/getchilds', 'PostController@getChilds')->name('getChilds');
 });
 
 //后台页面路由
@@ -35,6 +36,7 @@ Route::group(['namespace'=>'Admin', 'prefix'=>'admin', 'middleware'=>'App\Http\M
     Route::resource('/admin', 'AdminController');
     Route::resource('/article', 'ArticleController');
     Route::post('/article/verify', 'ArticleController@verify')->name('articleverify');
+    Route::post('/deletePhoto', 'ArticleController@deletePhoto')->name('deletePhoto');
     Route::resource('/comment', 'CommentController');
     Route::post('/comment/verify', 'CommentController@verify')->name('commentverify');
     Route::resource('/config', 'ConfigController');

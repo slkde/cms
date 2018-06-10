@@ -14,6 +14,28 @@ class CommentController extends Controller
         return view('admin.comments.index', compact('data'));
     }
 
+    public function edit($id){
+        $item = Comment::find($id);
+        if(!$item){
+            abort(404);
+        }
+        return view('admin.comments.edit', compact('item'));
+    }
+
+    public function update($id, Request $request){
+        $item = Comment::find($id);
+        $input['content'] = $request->input('content');
+        // dd($input);
+        if(!$item){
+            abort(404);
+        }
+        if(!$item->update($input)){
+            $request->flash();
+            return redirect()->back();
+        }
+        return redirect('/admin/comment');
+    }
+
     public function destroy($id){
         $item = Comment::find($id);
         if(!$item){

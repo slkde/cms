@@ -53,7 +53,7 @@ class HomeController extends Controller
             return Category::getids($id);
         });
         // $ids =  Category::select(DB::raw('GROUP_CONCAT(id) as ids'))->where('pid', $id)->get();
-        $items = Cache::remember('category' . $id, 60 * 24, function () use($ids) {
+        $items = Cache::remember('article' . $id, 60 * 24, function () use($ids) {
             return Article::wherein('category_id', $ids)->where('is_verify', '=', 'Y')->orderBy('category_top_expired', 'desc')->orderBy('index_top_expired', 'desc')->latest('created_at')->Paginate(50);
         });
         // dd($items);
@@ -66,8 +66,12 @@ class HomeController extends Controller
     // 载入更多
     public function getinfo(Request $request){
         if($request->input('cid')){
-            $ids =  Category::getids($request->input('cid'));
-            $items = Article::wherein('category_id', $ids)->where('is_verify', '=', 'Y')->orderBy('category_top_expired', 'desc')->orderBy('index_top_expired', 'desc')->latest('created_at')->Paginate(50);
+            $ids =  Cache::remember('categoryIds' . $request->input('cid'), 60 * 24 * 365, function (){
+                return Category::getids($request->input('cid'));
+            });
+            $items = Cache::remember('category' . $request->input('cid') .'p'. $request->input('page'), 60 * 24, function () use($ids) {
+                return Article::wherein('category_id', $ids)->where('is_verify', '=', 'Y')->orderBy('category_top_expired', 'desc')->orderBy('index_top_expired', 'desc')->latest('created_at')->Paginate(50);
+            });
             if (!empty($items)) {
                 foreach($items as $item)
                 {
@@ -98,7 +102,9 @@ class HomeController extends Controller
                 }
             }
         }else{
-            $items = Article::where('is_verify', '=', 'Y')->orderBy('category_top_expired', 'desc')->orderBy('index_top_expired', 'desc')->latest('created_at')->Paginate(50);
+            $items = Cache::remember('home_latest_items'. $request->input('page'), 30, function(){
+                return Article::where('is_verify', '=', 'Y')->orderBy('category_top_expired', 'desc')->orderBy('index_top_expired', 'desc')->latest('created_at')->Paginate(50);
+            });
             if (!empty($items)) {
                 foreach($items as $item)
                 {

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Comment;
+use App\Models\Image;
 
 class ArticleController extends Controller
 {
@@ -42,11 +43,11 @@ class ArticleController extends Controller
      *
      */
     public function edit($id){
-        $data = Article::find($id);
-        if(!$data){
+        $item = Article::find($id);
+        if(!$item){
             abort(404);
         }
-        return view('admin.articles.edit', compact('data'));
+        return view('admin.articles.edit', compact('item'));
     }
 
     //文章修改
@@ -54,8 +55,32 @@ class ArticleController extends Controller
     /**
      *
      */
-    public function update(){
+    public function update($id, Request $request){
+        $input = $request->except('_token', '_method', 'images');
+        // dd($input);
+        foreach($input as $k=>$v){
+            if(empty($input[$k])){
+                unset($input[$k]);
+            }
+        }
+        $item = Article::find($id);
+        if(! $item->update($input)){
+            return redirect()->back()->with('message', '未知错误！');
+        }
 
+        if ($request->hasFile('images')) {
+            $path =  '/upload/images/' . date('Y') . '/' . date('m') . '/';
+            foreach($request->file('images') as $image) {
+                $file = date('dHis') . rand('1000','9999') . '.' .  $image->extension();
+                if($image->move(public_path() . $path, $file)){
+                    $img['article_id'] = $id;
+                    $img['file'] = $path . $file;
+                    $img['size'] = round($image->getClientSize() / 1024);
+                    Image::create($img);
+                }
+            }
+        }
+        return redirect('/admin/article');
     }
 
     //文章删除
@@ -71,6 +96,12 @@ class ArticleController extends Controller
         if(!$item->delete()){
             return response()->json(['static'=>'false']);
         }else{
+            $img = Image::where('article_id', '=', $id)->get();
+            if($img){
+                foreach($img as $v){
+                    @unlink(public_path() . $v->file);
+                }
+            }
             Comment::where('article_id', '=', $id)->delete();
             return response()->json(['static'=>'true']);
         }
@@ -88,6 +119,19 @@ class ArticleController extends Controller
         }else{
             return response()->json(['static' => 'true']);
         }
+    }
+
+    public function deletePhoto(Request $request){
+        $item = Image::find($request->input('id'));
+        $file = public_path() . $item->file;
+        if(!$item){
+            abort(404);
+        }
+        if(!$item->delete()){
+            return ;
+        }
+        @unlink($file);
+        return response()->json(['static'=>true]);
     }
 
 }

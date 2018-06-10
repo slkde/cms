@@ -142,7 +142,7 @@ $(document).ready(function(){
 					  </div>
 				</div>
 
-				  <div id="area_id-form-group" class="form-group @if($errors->has('area_id')) has-error  @endif">
+				  <div id="area_id-form-group" class="form-group @if($errors->has('district_id')) has-error  @endif">
 				    <label for="area_id" class="col-md-2 control-label">区域</label>
 				    <div class="col-md-10">
 						<select class="selectpicker show-tick district_id" title="请选择" name="district_id" id="district_id">
@@ -164,17 +164,17 @@ $(document).ready(function(){
 				    </div>
 				  </div>
 
-				  <div id="day-form-group" class="form-group @if($errors->has('day')) has-error  @endif">
+				  <div id="day-form-group" class="form-group @if($errors->has('expired_days')) has-error  @endif">
 				     <label for="day" class="col-md-2 control-label">有效期限</label>
 				     <div class="col-md-2">	
 						<div class="input-group">
-						  <input type="text" class="form-control" maxlength="3" value="{{ old('day', 30) }}" name="expired_days" id="day">
+						  <input type="text" class="form-control" maxlength="3" value="{{ old('expired_days', 60) }}" name="expired_days" id="day">
 						  <span class="input-group-addon">天</span>
-						  @if($errors->has('area_id')) <p class="text-warning small"><strong>{{ $errors->first('day') }}</strong></p>  @endif
+						  @if($errors->has('expired_days')) <p class="text-warning small"><strong>{{ $errors->first('expired_days') }}</strong></p>  @endif
 						</div>
 				    </div>
 				    <div class="col-md-6">
-						<span class="help-block small"> 可根据实际需要修改，留空为长期有效</span>
+						<span class="help-block small"> 可根据实际需要修改</span>
 				    </div>
 				  </div>
 
@@ -240,7 +240,7 @@ $(document).ready(function(){
 				    <label for="ps" class="col-md-2 control-label">管理密码</label>
 				    <div class="col-md-2">
 						<input autocomplete="off" type="text" class="form-control" name="manage_passwd" id="ps" value="{{ old('manage_passwd') }}" maxlength="15">
-                        <strong><p id="msgPs" class="text-warning small">@if($errors->has('ps')){{ $errors->first('ps') }}@endif</p></strong>
+                        <strong><p id="msgPs" class="text-warning small">@if($errors->has('manage_passwd')){{ $errors->first('manage_passwd') }}@endif</p></strong>
 				    </div>
 				    <div class="col-lg-6">
 						<span class="help-block small"><span class="text-danger"><strong>重要，至少四位！</strong></span>作为日后修改、取消信息的重要凭证，请牢记！</span>
