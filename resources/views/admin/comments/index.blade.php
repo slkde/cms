@@ -56,7 +56,7 @@
                 <form action="" method="get">
                     <div class="input-group">
                         <input type="text" class="form-control input-sm pull-right" name="search"
-                               style="width: 150px;" placeholder="{{ $s or '搜索文章标题' }}">
+                               style="width: 150px;" placeholder="{{ $s or '搜索内容' }}">
                         <div class="input-group-btn">
                             <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
                         </div>

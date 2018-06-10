@@ -38,9 +38,9 @@ class UserController extends Controller
         }
         // dd($input);
         if($item->update($input)){
-            return redirect()->back()->with('success', 'Profile updated!');
+            return redirect()->back()->with('success', '操作成功');
         }else{
-            return redirect()->back()->with('error', 'Profile updated!');
+            return redirect()->back()->with('error', '操作失败');
         }
     }
 }

@@ -17,7 +17,7 @@
                     <li class="dropdown notifications-menu">
                         <a href="{{url('/admin')}}">
                             <i class="fa fa-home"></i>
-                            <span class="label label-info">H</span>
+                            {{-- <span class="label label-info">H</span> --}}
                         </a>
                     </li>
 
@@ -25,13 +25,13 @@
                     <li class="dropdown messages-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-envelope-o"></i>
-                            <span class="label label-success">4</span>
+                            {{-- <span class="label label-success">4</span> --}}
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="header">你有4条私信</li>
+                            <li class="header">私信</li>
                             <li>
                                 <!-- inner menu: contains the actual data -->
-                                <ul class="menu">
+                                {{-- <ul class="menu">
                                     <li><!-- start message -->
                                         <a href="#">
                                             <div class="pull-left">
@@ -46,7 +46,7 @@
                                         </a>
                                     </li>
                                     <!-- end message -->
-                                </ul>
+                                </ul> --}}
                             </li>
                             <li class="footer"><a href="#">查看所有消息</a></li>
                         </ul>
@@ -56,16 +56,16 @@
                     <li class="dropdown notifications-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-bell-o"></i>
-                            <span class="label label-warning">10</span>
+                            {{-- <span class="label label-warning">10</span> --}}
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="header">你有10条消息通知</li>
+                            <li class="header">消息通知</li>
                             <li>
                                 <!-- inner menu: contains the actual data -->
                                 <ul class="menu">
                                     <li>
                                         <a href="#">
-                                            <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                                            {{-- <i class="fa fa-users text-aqua"></i> 5 new members joined today --}}
                                         </a>
                                     </li>
                                 </ul>
