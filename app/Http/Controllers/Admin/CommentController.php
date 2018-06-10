@@ -9,9 +9,14 @@ use App\Models\Comment;
 class CommentController extends Controller
 {
     //
-    public function index(){
-        $data = Comment::latest('created_at')->Paginate(20);
-        return view('admin.comments.index', compact('data'));
+    public function index(Request $request){
+        $s = $request->input('search');
+        if($s){
+            $data = Comment::where('content','like', trim('%'. $s. '%'))->latest('created_at')->Paginate(20);
+        }else{
+            $data = Comment::latest('created_at')->Paginate(20);
+        }
+        return view('admin.comments.index', compact('data', 's'));
     }
 
     public function edit($id){

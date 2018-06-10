@@ -26,7 +26,7 @@ class PostRequest extends FormRequest
         return [
             'category_id'    =>  'required|exists:categorys,id',
             'district_id'    =>  'required|exists:districts,id',
-            'expired_days'   =>  'required',
+            'expired_days'   =>  'required|alpha_num',
             'title'          =>  'required|min:6',
             'content'        =>  'required',
             'tel'            =>  ['required', 'regex:/^1[3|4|5|7|8][0-9]\d{8}$/'],

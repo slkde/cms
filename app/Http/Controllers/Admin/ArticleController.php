@@ -7,16 +7,26 @@ use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Comment;
 use App\Models\Image;
-
+use Cache;
 class ArticleController extends Controller
 {
     //文章列表页面
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(){
-        $data = Article::latest('created_at')->Paginate(20);
-        return view('admin.articles.index', compact('data'));
+    public function index(Request $request){
+        $s = $request->input('search');
+        if($s){
+            if(is_numeric($s))
+            {//按电话查找
+                $data = Article::where('tel','=', trim($s))->latest('created_at')->Paginate(20);
+            } else {//按词查找
+                $data = Article::where('title','like', trim('%'. $s. '%'))->latest('created_at')->Paginate(20);
+            }
+        }else{
+            $data = Article::latest('created_at')->Paginate(20);
+        }
+        return view('admin.articles.index', compact('data','s'));
     }
 
     //文章创建页面
@@ -80,7 +90,8 @@ class ArticleController extends Controller
                 }
             }
         }
-        return redirect('/admin/article');
+        Cache::forget('info' . $id);
+        return redirect('/admin/article')->withInput();
     }
 
     //文章删除

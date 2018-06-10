@@ -48,15 +48,15 @@
 @stop
 
 @section('content')
-    <a href="{{url('admin/article/create')}}" class="btn btn-primary margin-bottom"><i class="fa fa-paint-brush" style="margin-right: 6px"></i>撰写新文章</a>
+    {{-- <a href="{{url('admin/comment/create')}}" class="btn btn-primary margin-bottom"><i class="fa fa-paint-brush" style="margin-right: 6px"></i>撰写新文章</a> --}}
     <div class="box box-primary">
         <div class="box-header with-border">
             <h3 class="box-title">文章列表</h3>
             <div class="box-tools">
                 <form action="" method="get">
                     <div class="input-group">
-                        <input type="text" class="form-control input-sm pull-right" name="s_title"
-                               style="width: 150px;" placeholder="搜索文章标题">
+                        <input type="text" class="form-control input-sm pull-right" name="search"
+                               style="width: 150px;" placeholder="{{ $s or '搜索文章标题' }}">
                         <div class="input-group-btn">
                             <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
                         </div>
@@ -93,6 +93,7 @@
                 @endforeach
                 </tbody>
             </table>
+            {{$data->appends(['search'=>$s])->links()}}
         </div>
     </div>
 @stop

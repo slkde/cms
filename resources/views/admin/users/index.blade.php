@@ -44,7 +44,7 @@
                 <tr>
                     <td>
                         {{-- <a style="font-size: 16px;color: #dd4b39;" href="#"><i class="fa fa-fw fa-trash-o" title="删除"></i></a> --}}
-                        <a style="font-size: 16px" href="{{ url('/admin/user/'. $user->name .'/edit') }}"><i class="fa fa-fw fa-pencil" title="修改"></i></a>
+                        <a style="font-size: 16px" href="{{ url('/admin/user/'. $user->id .'/edit') }}"><i class="fa fa-fw fa-pencil" title="修改"></i></a>
                     </td>
                     <td class="text-muted">{{ $user->name }}</td>
                     <td class="text-muted">{{ $user->email }}</td>

@@ -141,14 +141,14 @@ class HomeController extends Controller
     //详细信息
     public function info($id, Request $request){
         // $menu = Category::where('pid', 0)->get();
-        $item = Article::find($id);
+        $item = Cache::remember('info' . $id, 60 * 24 * 365, function () use($id) {
+            return Article::find($id);
+        });
         if(! $item || $item->is_verify == 'N') {
             abort(404);
         }
         //导航栏
-        $category = Cache::remember('cat' . $id, 60 * 24 * 365, function () use($item) {
-            return Category::find($item->category_id);
-        });
+        $category =  Category::find($item->category_id);
         if(!count($category->getparent)){
             $breadcrumb = '<li class="active">'.$category->name.'</li>';
         }else{

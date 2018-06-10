@@ -136,15 +136,15 @@
                         <div class="box-body">
                         {{-- <p>Add the classes <code>.btn.btn-app</code> to an <code>&lt;a></code> tag to achieve the following:</p> --}}
                         <a class="btn btn-app" id="make-sitemap">
-                            <span class="badge bg-green">300</span>
+                            {{-- <span class="badge bg-green">300</span> --}}
                             <i class="fa fa-barcode"></i> <span id="sitemap">生成sitemap</span>
                         </a>
                         <a class="btn btn-app" id="clear-log">
-                            <span class="badge bg-purple">891</span>
+                            {{-- <span class="badge bg-purple">891</span> --}}
                             <i class="fa fa-users"></i> <span id="log">清空日志</span>
                         </a>
                         <a class="btn btn-app" id="clear-cache">
-                            <span class="badge bg-red">67</span>
+                            {{-- <span class="badge bg-red">67</span> --}}
                             <i class="fa fa-inbox"></i> <span id="cache">清空缓存</span>
                         </a>
                         </div>
