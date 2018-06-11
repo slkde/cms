@@ -28,7 +28,7 @@ class DashboardController extends Controller
        {
        	  $xml .= "<url><loc>http://www.ja168.net/info-{$item->id}.html</loc><lastmod>$date</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>\n";
        }
-       $rows = @DB::select("SELECT id,post_title FROM `wp_posts` WHERE post_status=\"publish\" AND post_type=\"post\"");
+       $rows = @DB::connection('blog')->select("SELECT id,post_title FROM `wp_posts` WHERE post_status=\"publish\" AND post_type=\"post\"");
        foreach($rows as $item)
        {
        	  $xml .= "<url><loc>http://www.ja168.net/blog/?p={$item->id}</loc><lastmod>$date</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>\n";
