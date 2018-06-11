@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Models\Image;
 use Jenssegers\Agent\Agent;
 use Cache;
+use DB;
 
 class HomeController extends Controller
 {
@@ -27,8 +28,9 @@ class HomeController extends Controller
         $comments = Cache::remember('home_latest_comments', 1440, function () {
             return Comment::where('is_verify', '=', 'Y')->latest('created_at')->Paginate(50);
         });
+        $blog_articles = DB::connection('blog')->select("SELECT id,post_title FROM `wp_posts` WHERE post_status=\"publish\" AND post_type=\"post\" ORDER BY id DESC");
         // $menu = Category::where('pid', 0)->get();
-        return view('home.index.index', compact('latestItems', 'comments', 'isMobile'));
+        return view('home.index.index', compact('latestItems', 'comments', 'isMobile', 'blog_articles'));
     }
 
     // 分类页面

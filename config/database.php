@@ -54,6 +54,21 @@ return [
             'engine' => null,
         ],
 
+        'blog' => [
+            'driver' => 'mysql',
+            'host' => env('blog_HOST', '127.0.0.1'),
+            'port' => env('blog_PORT', '3306'),
+            'database' => env('blog_DATABASE', 'forge'),
+            'username' => env('blog_USERNAME', 'forge'),
+            'password' => env('blog_PASSWORD', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => 'wp_',
+            'strict' => true,
+            'engine' => null,
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'host' => env('DB_HOST', '127.0.0.1'),

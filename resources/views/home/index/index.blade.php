@@ -124,9 +124,9 @@
         <div class="panel panel-default hidden-xs">     
           <div class="panel-heading"><div class="text-muted pull-left">最新文章</div>&nbsp;</div>
           <div class="list-group small">
-            {{-- @foreach ($blog_articles as $item)
+            @foreach ($blog_articles as $item)
             <li class="list-group-item"><a target="_blank" href="http://www.ja168.net/blog/?p={{ $item->id }}">{{$item->post_title}}</a></li>  
-            @endforeach             --}}
+            @endforeach            
           </div>
         </div>
   </div>
