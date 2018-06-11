@@ -22,7 +22,7 @@ class HomeController extends Controller
         $isMobile = $userAgent->isMobile() ? 'Y': 'N';
         // 获取所有信息
         $latestItems = Cache::remember('home_latest_items', 30, function(){
-            return Article::where('is_verify', '=', 'Y')->orderBy('index_top_expired', 'desc')->latest('created_at')->Paginate(50);
+            return Article::select(DB::raw('*, (ISNULL(index_top_expired) || index_top_expired < now()) AS p'))->where('is_verify', '=', 'Y')->orderBy('p', 'asc')->latest('created_at')->Paginate(50);
         });
         // 获取所有评论
         $comments = Cache::remember('home_latest_comments', 1440, function () {
@@ -56,7 +56,7 @@ class HomeController extends Controller
         });
         // $ids =  Category::select(DB::raw('GROUP_CONCAT(id) as ids'))->where('pid', $id)->get();
         $items = Cache::remember('article' . $id, 60 * 24, function () use($ids) {
-            return Article::wherein('category_id', $ids)->where('is_verify', '=', 'Y')->orderBy('category_top_expired', 'desc')->orderBy('index_top_expired', 'desc')->latest('created_at')->Paginate(50);
+            return Article::select(DB::raw('*,ISNULL(index_top_expired) || index_top_expired < now() AS p, ISNULL(category_top_expired) || category_top_expired < now() AS p1'))->wherein('category_id', $ids)->where('is_verify', '=', 'Y')->orderBy('p1', 'asc')->orderBy('p', 'asc')->latest('created_at')->Paginate(50);
         });
         // dd($items);
         // $breadcrumb = '';
@@ -72,7 +72,7 @@ class HomeController extends Controller
                 return Category::getids($request->input('cid'));
             });
             $items = Cache::remember('category' . $request->input('cid') .'p'. $request->input('page'), 60 * 24, function () use($ids) {
-                return Article::wherein('category_id', $ids)->where('is_verify', '=', 'Y')->orderBy('category_top_expired', 'desc')->orderBy('index_top_expired', 'desc')->latest('created_at')->Paginate(50);
+                return Article::select(DB::raw('*,ISNULL(index_top_expired) || index_top_expired < now() AS p, ISNULL(category_top_expired) || category_top_expired < now() AS p1'))->wherein('category_id', $ids)->where('is_verify', '=', 'Y')->orderBy('p1', 'asc')->orderBy('p', 'asc')->latest('created_at')->Paginate(50);
             });
             if (!empty($items)) {
                 foreach($items as $item)
@@ -105,7 +105,7 @@ class HomeController extends Controller
             }
         }else{
             $items = Cache::remember('home_latest_items'. $request->input('page'), 30, function(){
-                return Article::where('is_verify', '=', 'Y')->orderBy('category_top_expired', 'desc')->orderBy('index_top_expired', 'desc')->latest('created_at')->Paginate(50);
+                return Article::select(DB::raw('*, (ISNULL(index_top_expired) || index_top_expired < now()) AS p'))->where('is_verify', '=', 'Y')->orderBy('p', 'asc')->latest('created_at')->Paginate(50);
             });
             if (!empty($items)) {
                 foreach($items as $item)
