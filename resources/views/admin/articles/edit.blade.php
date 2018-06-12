@@ -11,7 +11,7 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{url('/')}}"><i class="fa fa-dashboard"></i> 主页</a></li>
-        <li><a href="{{url('/admin/article')}}">内容管理</a></li>
+        <li><a href="{{url('/279497165/article')}}">内容管理</a></li>
         <li class="active">编辑信息</li>
     </ol>
 @stop
@@ -19,7 +19,7 @@
 @section('content')
     <h2 class="page-header">编辑信息</h2>
     <div class="box box-primary">
-        <form method="POST" action="/admin/article/{{ $item->id }}" accept-charset="utf-8" enctype="multipart/form-data">
+        <form method="POST" action="/279497165/article/{{ $item->id }}" accept-charset="utf-8" enctype="multipart/form-data">
             {!! csrf_field() !!}
             <input type="hidden" name="_method" value="PUT">
             <div class="nav-tabs-custom">
@@ -189,7 +189,7 @@
     
     	$.ajax({
            type:'POST',
-           url:'/admin/deletePhoto',
+           url:'/279497165/deletePhoto',
            data:'_token=<?php echo csrf_token() ?>&id=' + photoId,
            success:function(data){
               if (data.static) {

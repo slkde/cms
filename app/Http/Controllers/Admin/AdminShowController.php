@@ -47,11 +47,11 @@ class AdminShowController extends Controller
         }
         User::where(['id'=>\Auth::user()->id])->update(['ip'=>$request->ip()]);
         session(['admin' => $input['name']]);
-        return redirect('admin');
+        return redirect('279497165');
     }
 
     public function logout(){
         session()->forget('admin');
-        return redirect('admin/login');
+        return redirect('279497165/login');
     }
 }

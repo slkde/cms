@@ -36,7 +36,7 @@
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>
 
-    <form action="{{ url('admin/login') }}" method="post">
+    <form action="{{ url('279497165/login') }}" method="post">
       {!! csrf_field() !!}
       <div class="form-group has-feedback">
           

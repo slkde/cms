@@ -6,7 +6,7 @@
         访问日志
     </h1>
     <ol class="breadcrumb">
-        <li><a href="{{url('/admin')}}"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li><a href="{{url('/279497165')}}"><i class="fa fa-dashboard"></i> 主页</a></li>
         <li class="active">访问日志</li>
     </ol>
 </section>

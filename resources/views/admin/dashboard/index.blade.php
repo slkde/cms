@@ -5,7 +5,7 @@
 	$("#make-sitemap").click(function(){
 		$.ajax({
            type:'POST',
-           url:'/admin/sitemap',
+           url:'/279497165/sitemap',
            data:'_token=<?php echo csrf_token() ?>',
     			beforeSend: function() {
             $("#msg").html("");
@@ -24,7 +24,7 @@
   $("#clear-log").click(function(){
     $.ajax({
            type:'POST',
-           url:'/admin/clearlog',
+           url:'/279497165/clearlog',
            data:'_token=<?php echo csrf_token() ?>',
             beforeSend: function() {
               $("#msg").html("");
@@ -42,7 +42,7 @@
   $("#clear-cache").click(function(){
     $.ajax({
            type:'POST',
-           url:'/admin/clearcache',
+           url:'/279497165/clearcache',
            data:'_token=<?php echo csrf_token() ?>',
             beforeSend: function() {
               $("#msg").html("");
@@ -67,7 +67,7 @@
             <small>控制面板</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{url('/admin')}}"><i class="fa fa-dashboard"></i> 主页</a></li>
+            <li><a href="{{url('/279497165')}}"><i class="fa fa-dashboard"></i> 主页</a></li>
             <li class="active">控制面板</li>
         </ol>
     </section>

@@ -5,8 +5,8 @@
         <small>个人资料</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="{{url('/admin')}}"><i class="fa fa-dashboard"></i> 主页</a></li>
-        <li><a href="{{url('/admin/user')}}">用户管理</a></li>
+        <li><a href="{{url('/279497165')}}"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li><a href="{{url('/279497165/user')}}">用户管理</a></li>
         <li class="active"><a href="">个人资料</a></li>
     </ol>
 @stop
@@ -26,7 +26,7 @@
         修改失败!
     </div>
     @endif
-    <form method="POST" action="/admin/user/{{$item->id}}" accept-charset="utf-8">
+    <form method="POST" action="/279497165/user/{{$item->id}}" accept-charset="utf-8">
         {!! csrf_field() !!}
         <input type="hidden" name="_method" value="put">
         <div class="nav-tabs-custom">

@@ -6,7 +6,7 @@
         个人资料
       </h1>
       <ol class="breadcrumb">
-        <li><a href="{{url('/admin')}}"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li><a href="{{url('/279497165')}}"><i class="fa fa-dashboard"></i> 主页</a></li>
         <li class="active">个人资料</li>
       </ol>
     </section>
@@ -109,7 +109,7 @@
             <div class="tab-content">
 
               <div class="active tab-pane" id="settings">
-                <form class="form-horizontal" action="/admin/profile/{{ \Auth::user()->id }}" method="post">
+                <form class="form-horizontal" action="/279497165/profile/{{ \Auth::user()->id }}" method="post">
                   {{ csrf_field() }}
                   <input type="hidden" name="_method" value="put">
                   <div class="form-group">

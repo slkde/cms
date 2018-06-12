@@ -3,7 +3,7 @@
 {{--顶部导航--}}
 @section('main-header')
     <header class="main-header">
-        <a href="{{url('/admin')}}" class="logo">
+        <a href="{{url('/279497165')}}" class="logo">
             <span class="logo-mini">ja168</span>
             <span class="logo-lg"><b>集安信息网</b></span>
         </a>
@@ -15,7 +15,7 @@
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <li class="dropdown notifications-menu">
-                        <a href="{{url('/admin')}}">
+                        <a href="{{url('/279497165')}}">
                             <i class="fa fa-home"></i>
                             {{-- <span class="label label-info">H</span> --}}
                         </a>
@@ -76,12 +76,12 @@
 
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="{{url('static/admin/img/avatar.jpg')}}" class="user-image" alt="User Image">
+                            <img src="{{asset('static/admin/img/avatar.jpg')}}" class="user-image" alt="User Image">
                             <span class="hidden-xs">{{session('admin')}}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="user-header">
-                                <img src="{{url('static/admin/img/avatar.jpg')}}" class="img-circle" alt="User Image">
+                                <img src="{{asset('static/admin/img/avatar.jpg')}}" class="img-circle" alt="User Image">
 
                                 <p>
                                     Become A Good Programmer
@@ -105,10 +105,10 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="{{url('admin/profile')}}" class="btn btn-default btn-flat">个人资料</a>
+                                    <a href="{{url('279497165/profile')}}" class="btn btn-default btn-flat">个人资料</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="{{url('admin/logout')}}" class="btn btn-default btn-flat">退出</a>
+                                    <a href="{{url('279497165/logout')}}" class="btn btn-default btn-flat">退出</a>
                                 </div>
                             </li>
                         </ul>
@@ -128,7 +128,7 @@
         <section class="sidebar">
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img src="{{url('static/admin/img/avatar.jpg')}}" class="img-circle" alt="User Image">
+                    <img src="{{asset('static/admin/img/avatar.jpg')}}" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
                     <p>{{session('admin')}}</p>
@@ -151,7 +151,7 @@
             <ul class="sidebar-menu">
                 <li class="header">主导航栏</li>
                 <li>
-                    <a href="{{url('/admin')}}">
+                    <a href="{{url('/279497165')}}">
                         <i class="fa fa-dashboard"></i> <span>控制面板</span>
                     </a>
                 </li>
@@ -165,7 +165,7 @@
                     </a>
                     <ul class="treeview-menu">
                         {{-- <li><a href="{{url('/admin/admin')}}"><i class="fa fa-circle-o"></i>管理员</a></li> --}}
-                        <li><a href="{{url('/admin/user')}}"><i class="fa fa-circle-o"></i>系统用户</a></li>
+                        <li><a href="{{url('/279497165/user')}}"><i class="fa fa-circle-o"></i>系统用户</a></li>
                         {{-- <li><a href="#"><i class="fa fa-circle-o"></i>用户角色</a></li>
                         <li><a href="#"><i class="fa fa-circle-o"></i>用户权限</a></li> --}}
                     </ul>
@@ -180,8 +180,8 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{url('admin/article')}}"><i class="fa fa-circle-o"></i>信息管理</a></li>
-                        <li><a href="{{url('admin/comment')}}"><i class="fa fa-circle-o"></i>评论管理</a></li>
+                        <li><a href="{{url('279497165/article')}}"><i class="fa fa-circle-o"></i>信息管理</a></li>
+                        <li><a href="{{url('279497165/comment')}}"><i class="fa fa-circle-o"></i>评论管理</a></li>
                     </ul>
                 </li>
 
@@ -194,7 +194,7 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{url('admin/vlog')}}"><i class="fa fa-circle-o"></i>访问日志</a></li>
+                        <li><a href="{{url('279497165/vlog')}}"><i class="fa fa-circle-o"></i>访问日志</a></li>
                         <li><a href="#"><i class="fa fa-circle-o"></i>管理日志</a></li>
                     </ul>
                 </li>

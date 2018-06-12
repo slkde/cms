@@ -9,7 +9,7 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{url('/')}}"><i class="fa fa-dashboard"></i> 主页</a></li>
-        <li><a href="{{url('/admin/article')}}">内容管理</a></li>
+        <li><a href="{{url('/279497165/article')}}">内容管理</a></li>
         <li class="active">编辑信息</li>
     </ol>
 @stop
@@ -44,10 +44,6 @@
                             <!-- select -->
                             <div class="form-group">
                                 <select class="form-control">
-                                    <option>PHP</option>
-                                    <option>Laravel</option>
-                                    <option>Python</option>
-                                    <option>VueJs</option>
                                 </select>
                             </div>
                         </div>
@@ -62,7 +58,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>正文(支持Markdown语法)
+                            <label>正文法)
                                 <small class="text-red">*</small>
                             </label>
                                 <textarea class="textarea" placeholder="Place some text here"
@@ -80,13 +76,13 @@
 @stop
 
 @section('other-js')
-    <script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+    {{-- <script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
     <script src="/dist/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
     <script>
         $(function () {
             //bootstrap WYSIHTML5 - text editor
             $(".textarea").wysihtml5();
         });
-    </script>
+    </script> --}}
 @endsection
 

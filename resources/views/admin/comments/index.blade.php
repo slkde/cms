@@ -6,7 +6,7 @@
         $(".verify").click(function(){
             var verify = $(this);
             var value = verify.parent().attr('aval') == 'N' ? 'Y':'N' ;
-            $.post("{{ url('/admin/comment/verify') }}",{'_token':'{{ csrf_token() }}','id':verify.parent().attr('aid'),'is_verify':value},function(data){
+            $.post("{{ url('/279497165/comment/verify') }}",{'_token':'{{ csrf_token() }}','id':verify.parent().attr('aid'),'is_verify':value},function(data){
                 if(data.static){
                     if(value == 'Y'){
                         verify.parent().attr({'aval':value});
@@ -23,7 +23,7 @@
         //删除
         $('.del').click(function(){
             var del = $(this);
-            $.post("/admin/comment/" + del.parent().attr('aid'),{'_token':'{{ csrf_token() }}','_method':'delete'},function(data){
+            $.post("/279497165/comment/" + del.parent().attr('aid'),{'_token':'{{ csrf_token() }}','_method':'delete'},function(data){
                 if(data.static){
                     del.parent().parent().remove();
                 }
@@ -83,7 +83,7 @@
                 <tr>
                     <td aid="{{$comment->id}}" aval="{{ $comment->is_verify }}">
                         <a style="font-size: 16px;color: #dd4b39;" class="del" href="javascrtip:;"><i class="fa fa-fw fa-trash-o" title="删除"></i></a>
-                        <a style="font-size: 16px" href="{{ url('/admin/comment/' . $comment->id . '/edit') }}"><i class="fa fa-fw fa-pencil" title="修改"></i></a>
+                        <a style="font-size: 16px" href="{{ url('/279497165/comment/' . $comment->id . '/edit') }}"><i class="fa fa-fw fa-pencil" title="修改"></i></a>
                         <a style="font-size: 16px;{{ $comment->is_verify == 'N' ? 'color: #dd4b39;' :'' }}" class="verify" href="javascrtip:;"><i class="fa fa-fw fa-pie-chart" title="审核"></i></a>
                     </td>
                     <td class="text-muted"><a target="_blank" href="/info-{{$comment->article_id}}.html">{{ $comment->article->title or  $comment->article_id}}</a></td>

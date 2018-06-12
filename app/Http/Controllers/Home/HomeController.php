@@ -156,10 +156,6 @@ class HomeController extends Controller
         }else{
             $breadcrumb = '<li><a href="/category/'.$category->getparent->id.'">'.$category->getparent->name.'</a></li><li class="active">'.$category->name.'</li>';
         }
-        if(! $request->cookie("hit$id")){
-            $item->increment('hits', rand(1, 7));
-            \Cookie::queue("hit$id", true, 5);
-        }
         //判断过期
         $expireDays = strtotime ('+' . $item->expired_days . ' day', strtotime($item->created_at));
         if($expireDays > time()){
@@ -197,5 +193,15 @@ class HomeController extends Controller
             return Article::where([['is_verify', '=', 'Y'],['title', 'like', "%$key%"]])->orWhere([['is_verify', '=', 'Y'],['tel', 'like', "%$key%"]])->orWhere([['is_verify', '=', 'Y'],['linkman', 'like', "%$key%"]])->Paginate(100);
         });
         return view('home.index.search', compact('items'));
+    }
+
+    public function hits(Request $request){
+        $id   = $request->input('id');
+        $item = Article::find($id);
+        if(! $request->cookie("hit$id")){
+            $item->increment('hits', rand(1, 7));
+            \Cookie::queue("hit$id", true, 5);
+        } 
+        return $item->hits;
     }
 }

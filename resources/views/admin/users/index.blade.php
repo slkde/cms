@@ -5,7 +5,7 @@
         <small>注册会员</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="{{url('/admin')}}"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li><a href="{{url('/279497165')}}"><i class="fa fa-dashboard"></i> 主页</a></li>
         <li class="active">用户管理 -  注册会员</li>
     </ol>
 @stop
@@ -44,7 +44,7 @@
                 <tr>
                     <td>
                         {{-- <a style="font-size: 16px;color: #dd4b39;" href="#"><i class="fa fa-fw fa-trash-o" title="删除"></i></a> --}}
-                        <a style="font-size: 16px" href="{{ url('/admin/user/'. $user->id .'/edit') }}"><i class="fa fa-fw fa-pencil" title="修改"></i></a>
+                        <a style="font-size: 16px" href="{{ url('/279497165/user/'. $user->id .'/edit') }}"><i class="fa fa-fw fa-pencil" title="修改"></i></a>
                     </td>
                     <td class="text-muted">{{ $user->name }}</td>
                     <td class="text-muted">{{ $user->email }}</td>

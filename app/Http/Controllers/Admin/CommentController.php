@@ -38,7 +38,7 @@ class CommentController extends Controller
             $request->flash();
             return redirect()->back();
         }
-        return redirect('/admin/comment');
+        return redirect('/279497165/comment');
     }
 
     public function destroy($id){

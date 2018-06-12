@@ -91,7 +91,7 @@ class ArticleController extends Controller
             }
         }
         Cache::forget('info' . $id);
-        return redirect('/admin/article')->withInput();
+        return redirect('/279497165/article')->withInput();
     }
 
     //文章删除

@@ -22,7 +22,7 @@ Route::group(['namespace'=>'Home'], function(){
     Route::get('/message', 'HomeController@message')->name('message');
     Route::get('/tp', 'HomeController@tp')->name('tp');
     Route::get('/search/{key}', 'HomeController@search')->name('search');
-
+    Route::post('/hits', 'HomeController@hits')->name('hits');
     Route::resource('/post', 'PostController');
     Route::post('/comment', 'PostController@comment')->name('comment');
     Route::post('/article/auth', 'PostController@auth')->name('auth');
@@ -31,7 +31,7 @@ Route::group(['namespace'=>'Home'], function(){
 });
 
 //后台页面路由
-Route::group(['namespace'=>'Admin', 'prefix'=>'admin', 'middleware'=>'App\Http\Middleware\CheckAdmin'], function(){
+Route::group(['namespace'=>'Admin', 'prefix'=>'279497165', 'middleware'=>'App\Http\Middleware\CheckAdmin'], function(){
     Route::get('/', 'AdminShowController@index')->name('adminindex');
     Route::resource('/admin', 'AdminController');
     Route::resource('/article', 'ArticleController');
@@ -48,6 +48,6 @@ Route::group(['namespace'=>'Admin', 'prefix'=>'admin', 'middleware'=>'App\Http\M
     Route::get('/vlog', 'LogController@vlog')->name('vlog');
 });
 //后台登陆路由
-Route::get('/admin/login', 'Admin\AdminShowController@login')->name('adminlogin');
-Route::post('/admin/login', 'Admin\AdminShowController@dologin')->name('admindologin');
-Route::get('/admin/logout', 'Admin\AdminShowController@logout')->name('adminlogout');
+Route::get('/279497165/login', 'Admin\AdminShowController@login')->name('adminlogin');
+Route::post('/279497165/login', 'Admin\AdminShowController@dologin')->name('admindologin');
+Route::get('/279497165/logout', 'Admin\AdminShowController@logout')->name('adminlogout');

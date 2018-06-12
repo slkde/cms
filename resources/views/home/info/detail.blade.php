@@ -18,17 +18,17 @@ $(document).ready(function(){
     this.src='/captcha?d='+Math.random();
   });
 
-  // $.ajax({
-  //          type:'POST',
-  //          url:'/hits',
-  //          beforeSend: function() {
-  //               $("#hits").html("<span class=\"small\" id=\"loading\"><i class=\"icon-spinner icon-spin\"></i></span>");
-  //          },           
-  //          data:'_token=<?php echo csrf_token() ?>&id={{ $item->id }}',
-  //          success:function(hits){
-  //             $("#hits").html(hits);
-  //          }
-  //     });   
+  $.ajax({
+           type:'POST',
+           url:'/hits',
+           beforeSend: function() {
+                $("#hits").html("<span class=\"small\" id=\"loading\"><i class=\"icon-spinner icon-spin\"></i></span>");
+           },           
+           data:'_token=<?php echo csrf_token() ?>&id={{ $item->id }}',
+           success:function(hits){
+              $("#hits").html(hits);
+           }
+      });   
 
   //手机号码归属地跨域请求
   $.ajax({
@@ -73,17 +73,15 @@ $(document).ready(function(){
   // });
 
   
-  $('.iparea').each(function(){
-    $.getScript('http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js&ip=' + $('.iparea').attr('ip'), function(){ 
-      if(remote_ip_info.city){
-        $('.iparea').html('所属地：' + remote_ip_info.country + remote_ip_info.city);
-      }else{
-        $('.iparea').html('所属地：' + remote_ip_info.country);
-      }
-    });
-    // alert(this);
-    
-  });
+  // $('.iparea').each(function(){
+  //   $.getScript('http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js&ip=' + $('.iparea').attr('ip'), function(){ 
+  //     if(remote_ip_info.city){
+  //       $('.iparea').html('所属地：' + remote_ip_info.country + remote_ip_info.city);
+  //     }else{
+  //       $('.iparea').html('所属地：' + remote_ip_info.country);
+  //     }
+  //   });
+  // });
 
   // $.getScript('http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js&ip=218.192.3.42', function(){
   //   alert(remote_ip_info.city);
