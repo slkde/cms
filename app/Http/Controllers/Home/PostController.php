@@ -42,6 +42,8 @@ class PostController extends Controller
                 unset($input[$k]);
             }
         }
+        $input['title'] = strip_tags($input['title']);
+        $input['content'] = strip_tags($input['content']);
         //保存
         $art = Article::create($input);
         if(!$art){
@@ -68,6 +70,7 @@ class PostController extends Controller
     public function comment(CommentRequest $request){
         $input = $request->except('_token', 'captcha');
         $input['ip'] = $request->ip();
+        $input['content'] = strip_tags($input['content']);
         //保存评论
         if(!Comment::create($input)){
             $request->flash();
