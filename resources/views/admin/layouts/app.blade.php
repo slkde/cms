@@ -11,8 +11,8 @@
     <link href="//cdn.bootcss.com/font-awesome/4.6.0/css/font-awesome.css" rel="stylesheet">
     <link href="//cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet" href="{{url('static/admin/css/AdminLTE.min.css')}}">
-    <link rel="stylesheet" href="{{url('static/admin/css/_all-skins.min.css')}}">
+    <link rel="stylesheet" href="{{asset('static/admin/css/AdminLTE.min.css')}}">
+    <link rel="stylesheet" href="{{asset('static/admin/css/_all-skins.min.css')}}">
     @show
 
     @section('other-css')
@@ -53,8 +53,8 @@
         <script src="//cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
         <script src="//cdn.bootcss.com/vue/2.0.0-rc.5/vue.min.js"></script>
         <script src="https://cdn.jsdelivr.net/vue.resource/1.0.2/vue-resource.min.js"></script>
-        <script src="{{url('static/admin/js/app.min.js')}}"></script>
-        <script src="{{url('static/admin/js/demo.js')}}"></script>
+        <script src="{{asset('static/admin/js/app.min.js')}}"></script>
+        <script src="{{asset('static/admin/js/demo.js')}}"></script>
     @show
 
     {{--额外Js依赖--}}

@@ -17,7 +17,7 @@ class AdminRepository
                     'sup' => '人',
                     'icon' => 'ion-person-add',
                     'bck' => 'bg-aqua',
-                    'url' => '/admin/user'
+                    'url' => '/279497165/user'
                 ],
                 
                 [
@@ -26,7 +26,7 @@ class AdminRepository
                     'sup' => '篇',
                     'icon' => 'ion-document',
                     'bck' => 'bg-green',
-                    'url' => '/admin/article'
+                    'url' => '/279497165/article'
                 ],
                 [
                     'count' => Comment::count(),
@@ -34,7 +34,7 @@ class AdminRepository
                     'sup' => '条',
                     'icon' => 'ion-android-chat',
                     'bck' => 'bg-red',
-                    'url' => 'admin/comment'
+                    'url' => '/279497165/comment'
                 ],
                 // [
                 //     'count' => 86,

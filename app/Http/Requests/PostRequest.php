@@ -47,7 +47,7 @@ class PostRequest extends FormRequest
             'tel.required'           => '手机号不能为空',
             'tel.regex'              => '手机号码格式错误',
             'manage_passwd.required' => '管理密码不能为空',
-            'ps.min'                 => '管理密码至少4位',
+            'manage_passwd.min'      => '管理密码至少4位',
             'images.image'           => '图像上传失败，请确认您上传的文件是图像？',
             'images.max'             => '图像上传失败，上传的图像太大啦，确保图像小于1M',
             'captcha.required'       => '请填写验证码',

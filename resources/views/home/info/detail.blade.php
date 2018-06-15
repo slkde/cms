@@ -53,11 +53,11 @@ $(document).ready(function(){
   });
   // 跨域请求失败
   // $.ajax({ 
-  //   type:'GET', 
-  //   url:'http://ip.taobao.com/service/getIpInfo.php', 
-  //   data:{'ip':'175.23.143.0'},
+  //   type:'POST', 
+  //   url:'http://pv.sohu.com/cityjson?ie=utf-8', 
+  //   // data:{'ip':'175.23.143.0'},
   //   dataType:'jsonp', 
-  //   crossDomain: true,
+  //   // crossDomain: true,
   //   beforeSend: function(){ $(".iparea").html('正在查询IP地址归属地'); }, 
   //   success:function(data){ 
   //     console.log(data);
@@ -73,15 +73,16 @@ $(document).ready(function(){
   // });
 
   
-  // $('.iparea').each(function(){
-  //   $.getScript('http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js&ip=' + $('.iparea').attr('ip'), function(){ 
-  //     if(remote_ip_info.city){
-  //       $('.iparea').html('所属地：' + remote_ip_info.country + remote_ip_info.city);
-  //     }else{
-  //       $('.iparea').html('所属地：' + remote_ip_info.country);
-  //     }
-  //   });
-  // });
+  $('.iparea').each(function(){
+    var iparea = $(this);
+    $.getScript('http://ip.ws.126.net/ipquery?ip=' + iparea.attr('ip'), function(){ 
+      if(localAddress){
+        iparea.html('所属地：' + localAddress.province + localAddress.city);
+      }else{
+        iparea.html('所属地：查询失败' );
+      }
+    });
+  });
 
   // $.getScript('http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js&ip=218.192.3.42', function(){
   //   alert(remote_ip_info.city);
@@ -159,7 +160,7 @@ $(document).ready(function(){
                                       <span class="small" id="telarea" tel="{{ $item->tel }}" style="color:green">电话归属地：</span>
                                       
                                     </p>
-                                    <p><i class="icon-building"></i> 区域：{{ $item->category->name }}</p>
+                                    <p><i class="icon-building"></i> 区域：{{ $item->district->name }}</p>
                                     @if ($item->isMobile == 'Y')<a href="tel:{{ $item->tel }}" class="btn btn-primary btn-block" role="button" ><i class="icon-pencil"></i> 点击拔打电话</a>@endif
                                     <br />
                               </div>
@@ -213,7 +214,7 @@ $(document).ready(function(){
                               <div class="panel panel-info">
                                 <div class="panel-heading">
                                   <div class="pull-left ip">{{ preg_replace('/(\d+)\.(\d+)\.(\d+)\.(\d+)/', "$1.$2.$3.0", $comment->ip) }}</div>&nbsp;&nbsp;
-                                    <span class="hidden-xs"></span>
+                                    <span class="hidden-xs iparea" ip="{{ preg_replace('/(\d+)\.(\d+)\.(\d+)\.(\d+)/', "$1.$2.$3.0", $comment->ip) }}"></span>&nbsp;
                                     {{ $comment->created_at }}&nbsp;
                                   <div class="pull-right">          
                                       <strong>{{ $index+1 }}</strong>楼
