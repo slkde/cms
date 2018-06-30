@@ -1,6 +1,7 @@
 /node_modules
 /public/blog
 /public/upload
+/public/sitemap.xml
 /storage/*.key
 /vendor
 /.idea
