@@ -2,6 +2,7 @@
 @push('js')
 <script type="text/javascript">
     $(document).ready(function(){
+        $("#ale").hide();
 	$("#make-sitemap").click(function(){
 		$.ajax({
            type:'POST',
@@ -15,7 +16,8 @@
            		if(data)
            		{
            		$("#sitemap").html("生成Sitemap");
-                $("#msg").html("<div class=\"alert alert-success\" role=\"alert\"><strong>提示!</strong> <a target='_blank' href='http://www.ja168.net/sitemap.xml'>查看sitemap</a>.</div>");
+                $("#ale").show();
+                $("#msg").html("生成Sitemap成功 <a target='_blank' href='http://www.ja168.net/sitemap.xml'>查看sitemap</a>");
            		}
            }
         });
@@ -34,7 +36,7 @@
               if(data)
               {
                 $("#log").html("清空日志");
-                $("#msg").html("<div class=\"alert alert-success\" role=\"alert\"><strong>提示!</strong> 日志清除成功.</div>");
+                $("#msg").html("日志清除成功");
               }
            }
         });
@@ -52,7 +54,7 @@
               if(data)
               {
                 $("#cache").html("清空缓存");
-                $("#msg").html("<div class=\"alert alert-success\" role=\"alert\"><strong>提示!</strong> 缓存清除成功.</div>");
+                $("#msg").html("缓存清除成功");
               }
            }
         });
@@ -76,6 +78,11 @@
 @section('content')
     <section class="content">
         <div class="row">
+            <div id="ale" class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="icon fa fa-check"></i> 修改成功!</h4>
+                <b id="msg">修改成功!</b>
+            </div>
             @foreach($collects as $collect)
                 <div class="col-lg-3 col-xs-6">
                     <div class="small-box {{$collect['bck']}}" style="color: #fff">
@@ -92,10 +99,44 @@
                 </div>
             @endforeach
         </div>
-
-
         
         <div class="row">
+            <section class="col-md-7">
+                <!-- Application buttons -->
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">功能</h3>
+                    </div>
+                    <div class="box-body">
+                        {{--
+                        <p>Add the classes <code>.btn.btn-app</code> to an <code>&lt;a></code> tag to achieve the following:</p> --}}
+                        <a class="btn btn-app" id="make-sitemap">
+                                        {{-- <span class="badge bg-green">300</span> --}}
+                                        <i class="fa fa-barcode"></i> <span id="sitemap">生成sitemap</span>
+                                    </a>
+                        <a class="btn btn-app" id="clear-log">
+                                        {{-- <span class="badge bg-purple">891</span> --}}
+                                        <i class="fa fa-users"></i> <span id="log">清空日志</span>
+                                    </a>
+                        <a class="btn btn-app" id="clear-cache">
+                                        {{-- <span class="badge bg-red">67</span> --}}
+                                        <i class="fa fa-inbox"></i> <span id="cache">清空缓存</span>
+                                    </a>
+                        <a class="btn btn-app" href="{{ url('279497165/article?search=N') }}">
+                                        {{-- <span class="badge bg-red">67</span> --}}
+                                        <i class="fa fa-inbox"></i> <span>全部未审核信息</span>
+                                    </a>
+                        <a class="btn btn-app" href="{{ url('279497165/comment?search=N') }}">
+                                        {{-- <span class="badge bg-red">67</span> --}}
+                                        <i class="fa fa-inbox"></i> <span>全部未审核评论</span>
+                                    </a>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </section>
+
+
             <section class="col-lg-7 connectedSortable">
                 <div class="box box-info">
                     <div class="box-header">
@@ -127,40 +168,7 @@
                 </div>
             </section>
 
-            <section class="col-md-3">
-                    <!-- Application buttons -->
-                    <div class="box">
-                        <div class="box-header">
-                        <h3 class="box-title">功能</h3>
-                        </div>
-                        <div class="box-body">
-                        {{-- <p>Add the classes <code>.btn.btn-app</code> to an <code>&lt;a></code> tag to achieve the following:</p> --}}
-                        <a class="btn btn-app" id="make-sitemap">
-                            {{-- <span class="badge bg-green">300</span> --}}
-                            <i class="fa fa-barcode"></i> <span id="sitemap">生成sitemap</span>
-                        </a>
-                        <a class="btn btn-app" id="clear-log">
-                            {{-- <span class="badge bg-purple">891</span> --}}
-                            <i class="fa fa-users"></i> <span id="log">清空日志</span>
-                        </a>
-                        <a class="btn btn-app" id="clear-cache">
-                            {{-- <span class="badge bg-red">67</span> --}}
-                            <i class="fa fa-inbox"></i> <span id="cache">清空缓存</span>
-                        </a>
-                        <a class="btn btn-app" href="{{ url('279497165/article?search=N') }}">
-                            {{-- <span class="badge bg-red">67</span> --}}
-                            <i class="fa fa-inbox"></i> <span>全部未审核信息</span>
-                        </a>
-                        <a class="btn btn-app" href="{{ url('279497165/comment?search=N') }}">
-                            {{-- <span class="badge bg-red">67</span> --}}
-                            <i class="fa fa-inbox"></i> <span>全部未审核评论</span>
-                        </a>
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                    <!-- /.box -->
-            </section>
-
+        
         </div>
     </section>
 @endsection
