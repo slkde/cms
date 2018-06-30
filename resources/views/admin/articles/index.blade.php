@@ -61,7 +61,7 @@
         <small>文章</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="{{url('/')}}"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li><a href="{{url('/279497165')}}"><i class="fa fa-dashboard"></i> 主页</a></li>
         <li>内容管理</li>
         <li class="active">信息管理</li>
     </ol>

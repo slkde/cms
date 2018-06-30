@@ -20,7 +20,9 @@ class ArticleController extends Controller
             if(is_numeric($s))
             {//按电话查找
                 $data = Article::where('tel','=', trim($s))->latest('created_at')->Paginate(20);
-            } else {//按词查找
+            } elseif($s == 'N') {//按词查找
+                $data = Article::where('is_verify','=', 'N')->latest('created_at')->Paginate(20);
+            } else {
                 $data = Article::where('title','like', trim('%'. $s. '%'))->latest('created_at')->Paginate(20);
             }
         }else{

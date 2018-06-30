@@ -8,7 +8,7 @@
         <small>文章</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="{{url('/')}}"><i class="fa fa-dashboard"></i> 主页</a></li>
+        <li><a href="{{url('/279497165')}}"><i class="fa fa-dashboard"></i> 主页</a></li>
         <li><a href="{{url('/279497165/article')}}">内容管理</a></li>
         <li class="active">编辑信息</li>
     </ol>

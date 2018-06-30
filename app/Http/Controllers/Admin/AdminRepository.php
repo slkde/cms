@@ -36,14 +36,14 @@ class AdminRepository
                     'bck' => 'bg-red',
                     'url' => '/279497165/comment'
                 ],
-                // [
-                //     'count' => 86,
-                //     'title' => '视频',
-                //     'sup' => '个',
-                //     'icon' => 'ion-videocamera',
-                //     'bck' => 'bg-purple',
-                //     'url' => 'admin/video/index'
-                // ]
+                [
+                    'count' => Article::where('is_verify', '=', 'N')->count(),
+                    'title' => '未审核信息',
+                    'sup' => '个',
+                    'icon' => 'ion-videocamera',
+                    'bck' => 'bg-purple',
+                    'url' => '279497165/article?search=N'
+                ]
             ]
         );
     }

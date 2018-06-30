@@ -11,8 +11,10 @@ class CommentController extends Controller
     //
     public function index(Request $request){
         $s = $request->input('search');
-        if($s){
+        if($s && $s !='N'){
             $data = Comment::where('content','like', trim('%'. $s. '%'))->latest('created_at')->Paginate(20);
+        }elseif($s == 'N'){
+            $data = Comment::where('is_verify','=', 'N')->latest('created_at')->Paginate(20);
         }else{
             $data = Comment::latest('created_at')->Paginate(20);
         }

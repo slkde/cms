@@ -147,6 +147,14 @@
                             {{-- <span class="badge bg-red">67</span> --}}
                             <i class="fa fa-inbox"></i> <span id="cache">清空缓存</span>
                         </a>
+                        <a class="btn btn-app" href="{{ url('279497165/article?search=N') }}">
+                            {{-- <span class="badge bg-red">67</span> --}}
+                            <i class="fa fa-inbox"></i> <span>全部未审核信息</span>
+                        </a>
+                        <a class="btn btn-app" href="{{ url('279497165/comment?search=N') }}">
+                            {{-- <span class="badge bg-red">67</span> --}}
+                            <i class="fa fa-inbox"></i> <span>全部未审核评论</span>
+                        </a>
                         </div>
                         <!-- /.box-body -->
                     </div>
