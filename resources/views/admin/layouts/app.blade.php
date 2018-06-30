@@ -65,10 +65,10 @@
         $(document).ready(function () {
             var path_array = window.location.pathname.split('/');
             var scheme_less_url = '//' + window.location.host + window.location.pathname;
-            if (path_array[1] == 'dashboard') {
+            if (path_array[2] == null) {
                 scheme_less_url = window.location.protocol + '//' + window.location.host + '/' + path_array[1];
             } else {
-                scheme_less_url = window.location.protocol + '//' + window.location.host + '/' + path_array[1] + '/' + path_array[2] + '/' + 'index';
+                scheme_less_url = window.location.protocol + '//' + window.location.host + '/' + path_array[1] + '/' + path_array[2] ;
             }
             $('ul.treeview-menu>li').find('a[href="' + scheme_less_url + '"]').closest('li').addClass('active');  //二级链接高亮
             $('ul.treeview-menu>li').find('a[href="' + scheme_less_url + '"]').closest('li.treeview').addClass('active');  //一级栏目[含二级链接]高亮
