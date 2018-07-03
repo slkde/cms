@@ -1,6 +1,6 @@
 @extends('home.layouts.master')
 
-@section('title', $item->title . ' - 集安信息网')
+@section('title', $item['title'] . ' - 集安信息网')
 
 @section('content')
 
@@ -24,7 +24,7 @@ $(document).ready(function(){
            beforeSend: function() {
                 $("#hits").html("<span class=\"small\" id=\"loading\"><i class=\"icon-spinner icon-spin\"></i></span>");
            },           
-           data:'_token=<?php echo csrf_token() ?>&id={{ $item->id }}',
+           data:'_token=<?php echo csrf_token() ?>&id={{ $item["id"] }}',
            success:function(hits){
               $("#hits").html(hits);
            }
@@ -101,45 +101,45 @@ $(document).ready(function(){
     <div  class="col-md-12">
         <div class="panel panel-default">
           <div class="panel-heading">
-            @if (strtotime ('+' . $item->expired_days . ' day', strtotime($item->created_at)) < time())
-            <del><h3 class="text-center">{{ $item->title }}</h3></del>
+            @if (strtotime ('+' . $item['expired_days'] . ' day', strtotime($item['created_at'])) < time())
+            <del><h3 class="text-center">{{ $item['title'] }}</h3></del>
             @else
-            <h3 class="text-center">{{ $item->title }}</h3>
+            <h3 class="text-center">{{ $item['title'] }}</h3>
             @endif
             
             <p class="text-center small">
-            @if($item->isMobile == 'Y')
+            @if($item['isMobile'] == 'Y')
               <div class="text-muted pull-left">
-                编号：{{$item->id}}
-                <i class="icon-time"></i> {{ date('Y-m-d', strtotime( $item->created_at)) }}
+                编号：{{$item['id']}}
+                <i class="icon-time"></i> {{ date('Y-m-d', strtotime( $item['created_at'])) }}
               </div>&nbsp;
               <div class="pull-right">          
-                  <i class="icon-eye-open"></i> <span id="hits">{{ $item->hits }}</span>人次
+                  <i class="icon-eye-open"></i> <span id="hits">{{ $item['hits'] }}</span>人次
               </div>
             @else
-              <i class="icon-time"></i> 发布时间：{{ date('Y-m-d', strtotime( $item->created_at)) }}&nbsp;&nbsp;&nbsp;
-              <i class="icon-time"></i> 有效时间：{{ $item->expireDays }}&nbsp;&nbsp;&nbsp;
-              <i class="icon-eye-open"></i> 查看次数：<span id="hits">{{ $item->hits }}</span>人次
+              <i class="icon-time"></i> 发布时间：{{ date('Y-m-d', strtotime( $item['created_at'])) }}&nbsp;&nbsp;&nbsp;
+              <i class="icon-time"></i> 有效时间：{{ $item['expireDays'] }}&nbsp;&nbsp;&nbsp;
+              <i class="icon-eye-open"></i> 查看次数：<span id="hits">{{ $item['hits'] }}</span>人次
             @endif
 
             </p>
           </div>
           <div class="panel-body">
               <div class="lead">
-              @if ($item->expireDays != '已经过期')
+              @if ($item['expireDays'] != '已经过期')
               <ul class="list-inline text-center">
-              @foreach ($item->images as $photo)                
-              <li><a target="_blank" href="{{ $photo->file }}"><img class="img-rounded" width="120" src="{{ $photo->file }}" ></a></li>
+              @foreach ($item['images'] as $photo)                
+              <li><a target="_blank" href="{{ $photo['file'] }}"><img class="img-rounded" width="120" src="{{ $photo['file'] }}" ></a></li>
               @endforeach
               </ul>
               @endif
-              {!! nl2br($item->content) !!}
+              {!! nl2br($item['content']) !!}
               </div>
               <p class="small text-warning text-right">友情提示：提高警惕，谨防诈骗！</p>
               <hr />
               <div class="row">
                 <div class="col-md-6">
-                            @if ($item->expireDays == '已经过期')
+                            @if ($item['expireDays'] == '已经过期')
                               <div class="alert alert-danger alert-dismissible fade in" role="alert">
                                 <strong>该信息已经过期，联系方式已经被隐藏。</strong>
                               </div>
@@ -148,33 +148,33 @@ $(document).ready(function(){
                               <div class="panel-heading small"><i class="icon-caret-right"></i><strong>联系方式</strong></div>
                               <div class="panel-body">
                                     <p>
-                                    @if ($item->linkman)
-                                      <i class="icon-user"></i> 称呼：{{ $item->linkman }}  &nbsp;
+                                    @if ($item['linkman'])
+                                      <i class="icon-user"></i> 称呼：{{ $item['linkman'] }}  &nbsp;
                                       @endif
-                                      <span class="text-muted small">{{ preg_replace('/(\d+)\.(\d+)\.(\d+)\.(\d+)/', "$1.$2.$3.*", $item->ip) }}</span>&nbsp;&nbsp;
-                                      <span class="small iparea"  ip="{{ preg_replace('/(\d+)\.(\d+)\.(\d+)\.(\d+)/', "$1.$2.$3.0", $item->ip) }}"></span>
+                                      <span class="text-muted small">{{ preg_replace('/(\d+)\.(\d+)\.(\d+)\.(\d+)/', "$1.$2.$3.*", $item['ip']) }}</span>&nbsp;&nbsp;
+                                      <span class="small iparea"  ip="{{ preg_replace('/(\d+)\.(\d+)\.(\d+)\.(\d+)/', "$1.$2.$3.0", $item['ip']) }}"></span>
                                     </p>
                                     <p>
-                                      <i class="icon-phone"></i> 电话：{{ $item->tel }}&nbsp;&nbsp;
+                                      <i class="icon-phone"></i> 电话：{{ $item['tel'] }}&nbsp;&nbsp;
                                       
-                                      <span class="small" id="telarea" tel="{{ $item->tel }}" style="color:green">电话归属地：</span>
+                                      <span class="small" id="telarea" tel="{{ $item['tel'] }}" style="color:green">电话归属地：</span>
                                       
                                     </p>
-                                    <p><i class="icon-building"></i> 区域：{{ $item->district->name }}</p>
-                                    @if ($item->isMobile == 'Y')<a href="tel:{{ $item->tel }}" class="btn btn-primary btn-block" role="button" ><i class="icon-pencil"></i> 点击拔打电话</a>@endif
+                                    <p><i class="icon-building"></i> 区域：{{ $item['district'] }}</p>
+                                    @if ($item['isMobile'] == 'Y')<a href="tel:{{ $item['tel'] }}" class="btn btn-primary btn-block" role="button" ><i class="icon-pencil"></i> 点击拔打电话</a>@endif
                                     <br />
                               </div>
                             </div>
                             @endif
                 </div>
-                @if ($item->expireDays != '已经过期')
+                @if ($item['expireDays'] != '已经过期')
                   <div class="col-md-6">
                           <div class="panel panel-default">
                             <div class="panel-heading small"><i class="icon-caret-right"></i><strong>管理信息</strong></div>
                             <div class="panel-body">
-                                  @if (Session::has("auth.$item->id"))
+                                  @if (Session::has("auth.{$item['id']}"))
                                   <center>
-                                  <a href="{{ url('/post'. '/' . $item->id .'/edit') }}"  class="btn btn-default btn-sm" role="button">&nbsp;修&nbsp;改&nbsp;信&nbsp;息</a>
+                                  <a href="{{ url('/post'. '/' . $item['id'] .'/edit') }}"  class="btn btn-default btn-sm" role="button">&nbsp;修&nbsp;改&nbsp;信&nbsp;息</a>
 
                                   <a class="btn btn-default btn-sm" role="button" class="text-top small" tabindex="0" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" data-content="信息过期后会自动失效，无需手动删除。">&nbsp;删&nbsp;除&nbsp;信&nbsp;息</a>
                                   </center>
@@ -187,7 +187,7 @@ $(document).ready(function(){
                                     <div class="form-group @if (Session::has('msgAuth')) has-error  @endif">
                                       <label for="passwd" class="sr-only">Password</label>
                                       <input type="text" class="form-control" id="passwd" name="password">
-                                      <input type="hidden" name="id" value="{{ $item->id }}">                   
+                                      <input type="hidden" name="id" value="{{ $item['id'] }}">                   
                                     </div>
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                     <button type="submit" class="btn btn-primary btn-sm">修改/删除</button>
@@ -201,7 +201,7 @@ $(document).ready(function(){
                   </div>
                 @endif
               </div>
-              @if (($item->expireDays != '已经过期') || !$item->comments->isEmpty())
+              @if (($item['expireDays'] != '已经过期') || ($comments !== null))
               <div class="panel panel-default">
                 <div class="panel-heading small"><i class="icon-caret-right"></i><strong>网友咨询</strong></div>
                 <div class="panel-body">
@@ -213,22 +213,22 @@ $(document).ready(function(){
                           @forelse ($comments as $index => $comment)
                               <div class="panel panel-info">
                                 <div class="panel-heading">
-                                  <div class="pull-left ip">{{ preg_replace('/(\d+)\.(\d+)\.(\d+)\.(\d+)/', "$1.$2.$3.0", $comment->ip) }}</div>&nbsp;&nbsp;
-                                    <span class="hidden-xs iparea" ip="{{ preg_replace('/(\d+)\.(\d+)\.(\d+)\.(\d+)/', "$1.$2.$3.0", $comment->ip) }}"></span>&nbsp;
-                                    {{ $comment->created_at }}&nbsp;
+                                  <div class="pull-left ip">{{ preg_replace('/(\d+)\.(\d+)\.(\d+)\.(\d+)/', "$1.$2.$3.0", $comment['ip']) }}</div>&nbsp;&nbsp;
+                                    <span class="hidden-xs iparea" ip="{{ preg_replace('/(\d+)\.(\d+)\.(\d+)\.(\d+)/', "$1.$2.$3.0", $comment['ip']) }}"></span>&nbsp;
+                                    {{ $comment['created_at'] }}&nbsp;
                                   <div class="pull-right">          
                                       <strong>{{ $index+1 }}</strong>楼
                                   </div>
                                 </div>
                                 <div class="panel-body">
-                                    {{ $comment->content }}
+                                    {{ $comment['content'] }}
                                 </div>
                               </div>
                           @empty
                               <p>暂无留言</p>
                           @endforelse
                         </div>
-                        @if ($item->expireDays != '已经过期')
+                        @if ($item['expireDays'] != '已经过期')
                             <form class="small" role="form" action="/comment" method="post">
                               <div class="form-group @if($errors->has('content')) has-error  @endif" id="content-form-group">
                                 <textarea class="form-control" rows="3" id="content" name="content">{{ old('content') }}</textarea>
@@ -242,7 +242,7 @@ $(document).ready(function(){
                                 <img id="captchaImage" src="{!! captcha_src() !!}">
                               </div>
                               <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                              <input type="hidden" name="article_id" value="{{ $item->id }}">
+                              <input type="hidden" name="article_id" value="{{ $item['id'] }}">
                               <button type="submit" id="saveComment" class="btn btn-primary btn-sm">咨询留言</button>
                             </form>
                         @endif                        
