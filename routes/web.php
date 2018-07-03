@@ -13,20 +13,19 @@
 
 //前台页面路由
 Route::group(['namespace'=>'Home'], function(){
-    Route::resource('/', 'HomeController');
-    Route::get('/category/{id}', 'HomeController@category')->where('id', '[0-9]+')->name('category');
-    Route::get('/info-{id}.html', 'HomeController@info')->where('id', '[0-9]+')->name('info');
-    Route::get('/about', 'HomeController@about')->name('about');
-    Route::post('/getinfo', 'HomeController@getinfo')->name('getinfo');
-    Route::get('/statement', 'HomeController@statement')->name('statement');
-    Route::get('/message', 'HomeController@message')->name('message');
-    Route::get('/tp', 'HomeController@tp')->name('tp');
-    Route::get('/search/{key}', 'HomeController@search')->name('search');
-    Route::post('/hits', 'HomeController@hits')->name('hits');
+    Route::get('/', 'HomeController@index')->name('index');
+    Route::get('/category/{id}', 'CategoryController@category')->where('id', '[0-9]+')->name('category');
+    Route::get('/info-{id}.html', 'InfoController@info')->where('id', '[0-9]+')->name('info');
+    Route::get('/about', 'PageController@about')->name('about');
+    Route::post('/getinfo', 'CategoryController@getinfo')->name('getinfo');
+    Route::get('/statement', 'PageController@statement')->name('statement');
+    Route::get('/tp', 'PageController@tp')->name('tp');
+    Route::get('/search/{key}', 'SearchController@search')->name('search');
+    Route::post('/hits', 'PageController@hits')->name('hits');
     Route::resource('/post', 'PostController');
-    Route::post('/comment', 'PostController@comment')->name('comment');
-    Route::post('/article/auth', 'PostController@auth')->name('auth');
-    Route::get('/result', 'PostController@result')->name('result');
+    Route::post('/comment', 'CommentController@comment')->name('comment');
+    Route::post('/article/auth', 'InfoController@auth')->name('auth');
+    Route::get('/result', 'PageController@result')->name('result');
     Route::post('/getchilds', 'PostController@getChilds')->name('getChilds');
 });
 
@@ -48,6 +47,9 @@ Route::group(['namespace'=>'Admin', 'prefix'=>'279497165', 'middleware'=>'App\Ht
     Route::get('/vlog', 'LogController@vlog')->name('vlog');
 });
 //后台登陆路由
-Route::get('/279497165/login', 'Admin\AdminShowController@login')->name('adminlogin');
-Route::post('/279497165/login', 'Admin\AdminShowController@dologin')->name('admindologin');
-Route::get('/279497165/logout', 'Admin\AdminShowController@logout')->name('adminlogout');
+Route::get('/279497165/login', 'Admin\LoginController@login')->name('adminlogin');
+Route::post('/279497165/login', 'Admin\LoginController@dologin')->name('admindologin');
+Route::get('/279497165/logout', 'Admin\LoginController@logout')->name('adminlogout');
+
+//微信公众号
+Route::any('weichat', 'Weichat\WeichatController@weichat')->name('weichat');

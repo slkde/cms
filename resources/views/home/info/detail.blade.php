@@ -210,7 +210,7 @@ $(document).ready(function(){
                         @endif
 
                         <div class="list-group small">
-                          @forelse ($item->comments->where('is_verify','Y') as $index => $comment)
+                          @forelse ($comments as $index => $comment)
                               <div class="panel panel-info">
                                 <div class="panel-heading">
                                   <div class="pull-left ip">{{ preg_replace('/(\d+)\.(\d+)\.(\d+)\.(\d+)/', "$1.$2.$3.0", $comment->ip) }}</div>&nbsp;&nbsp;

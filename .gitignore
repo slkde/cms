@@ -2,6 +2,7 @@
 /public/blog
 /public/upload
 /public/sitemap.xml
+/public/root.txt
 /storage/*.key
 /vendor
 /.idea

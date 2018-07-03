@@ -78,21 +78,21 @@ $(document).ready(function(){
 			$("#captcha-form-group").addClass('has-error');
 			submitForm = false;
 		} else {
-			$.ajax({
-               type:'POST',
-               url:'/checkCaptcha',
-               data:'_token=<?php echo csrf_token() ?>&captcha=' + $("#captcha").val(),
-               success:function(data){
-                  if (data.result == false) {
-                  		$("#msgCaptcha").html("验证码输入错误");
-                  		$("#captcha-form-group").addClass('has-error');
-                  		var submitForm = false;
-                  } else {
-                  		$("#msgCaptcha").html('');
-                  		$("#captcha-form-group").removeClass('has-error');
-                  }
-               }
-	        });
+			// $.ajax({
+      //          type:'POST',
+      //          url:'/checkCaptcha',
+      //          data:'_token=<?php echo csrf_token() ?>&captcha=' + $("#captcha").val(),
+      //          success:function(data){
+      //             if (data.result == false) {
+      //             		$("#msgCaptcha").html("验证码输入错误");
+      //             		$("#captcha-form-group").addClass('has-error');
+      //             		var submitForm = false;
+      //             } else {
+      //             		$("#msgCaptcha").html('');
+      //             		$("#captcha-form-group").removeClass('has-error');
+      //             }
+      //          }
+	    //     });
 		}
 		if(! submitForm)
 		{
@@ -107,6 +107,35 @@ $(document).ready(function(){
 	});
 
 });
+
+		//获取子分类
+		var s = "{{old('category_id')}}";
+    function loadChild(id, currentId)
+    {
+    	$.ajax({
+           type:'POST',
+           url:'/getchilds',
+           data:'_token=<?php echo csrf_token() ?>&id=' + id,
+    
+           success:function(data){
+							$.each(data, function(key, item) {
+								if(s == item.id){
+									$('#category_id_child').append($("<option selected style=\"font-size:12px;\"></option>") .attr("value",item.id) .text(item.name)).selectpicker('refresh'); 
+								}else{
+									$('#category_id_child').append($("<option style=\"font-size:12px;\"></option>") .attr("value",item.id) .text(item.name)).selectpicker('refresh'); 
+								}
+								
+							});
+           }
+        });
+    }
+    $(document).ready(function(){
+    	loadChild($('#category_id').val());
+    	$('#category_id').change(function () {
+    		$('#category_id_child').html('').selectpicker('refresh');
+            loadChild($('#category_id').val());
+    	});
+		});
 </script>
 @endpush
 <ol class="breadcrumb small">
@@ -127,26 +156,32 @@ $(document).ready(function(){
 		    </div>
            	<hr />
 		    <form id="info-form" class="form-horizontal" role="form" action="/post" method="post" enctype="multipart/form-data">
-			    <div id="category_id-form-group" class="form-group @if($errors->has('category_id')) has-error  @endif">
+			    <div id="category_id-form-group" class="form-group @if($errors->has('pid')) has-error  @endif">
 					  <label for="category_id" class="col-md-2 control-label">栏目</label>
 					  <div class="col-md-5">
-								<select class="selectpicker show-tick" title="请选择" name="category_id" id="category_id">
-										<option @if(old('category_id') == 1 ) selected="selected"  @endif value="1" data-subtext="求租/出租/求购/中介/公寓/旅店/门市/商铺/摊位...">房产</option>
-										<option @if(old('category_id') == 2 ) selected="selected"  @endif value="2" data-subtext="店员/营业员/经营/行政/人事/后勤/教师/教练/助教...">人才</option>
-										<option @if(old('category_id') == 3 ) selected="selected"  @endif value="3" data-subtext="物品交换/手机/电脑/家电/工具/设备/材料...">供求</option>
-										<option @if(old('category_id') == 4 ) selected="selected"  @endif value="4" data-subtext="装修/维修/家政/快递/物流/搬家/庆典/摄影/鲜花...">服务</option>
-										<option @if(old('category_id') == 5 ) selected="selected"  @endif value="5" data-subtext="兴趣交友/征婚/寻亲/寻友...">交友</option>
-										<option @if(old('category_id') == 6 ) selected="selected"  @endif value="6" data-subtext="新车/二手车/手续/摩托/电动/自行车/拼车/租车/代驾...">车辆</option>
+								<select class="selectpicker show-tick" title="请选择" name="pid" id="category_id">
+										<option @if(old('pid') == 1 ) selected="selected"  @endif value="1" data-subtext="求租/出租/求购/中介/公寓/旅店/门市/商铺/摊位...">房产</option>
+										<option @if(old('pid') == 2 ) selected="selected"  @endif value="2" data-subtext="店员/营业员/经营/行政/人事/后勤/教师/教练/助教...">人才</option>
+										<option @if(old('pid') == 3 ) selected="selected"  @endif value="3" data-subtext="物品交换/手机/电脑/家电/工具/设备/材料...">供求</option>
+										<option @if(old('pid') == 4 ) selected="selected"  @endif value="4" data-subtext="装修/维修/家政/快递/物流/搬家/庆典/摄影/鲜花...">服务</option>
+										<option @if(old('pid') == 5 ) selected="selected"  @endif value="5" data-subtext="兴趣交友/征婚/寻亲/寻友...">交友</option>
+										<option @if(old('pid') == 6 ) selected="selected"  @endif value="6" data-subtext="新车/二手车/手续/摩托/电动/自行车/拼车/租车/代驾...">车辆</option>
 								</select>
-								<strong><p id="msgCategoryId" class="small text-warning">@if($errors->has('category_id')){{ $errors->first('category_id') }}@endif</p></strong>
-					  </div>
-				</div>
+								
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-md-offset-2 col-md-4 @if($errors->has('category_id')) has-error @endif">
+							<select class="selectpicker show-tick" title="请选择" name="category_id" id="category_id_child"></select>
+							<strong><p id="msgCategoryId" class="small text-warning">@if($errors->has('category_id')){{ $errors->first('category_id') }}@endif</p></strong>
+						</div>
+					</div>
 
 				  <div id="area_id-form-group" class="form-group @if($errors->has('district_id')) has-error  @endif">
 				    <label for="area_id" class="col-md-2 control-label">区域</label>
 				    <div class="col-md-10">
 						<select class="selectpicker show-tick district_id" title="请选择" name="district_id" id="district_id">
-						  <option @if(! old('district_id')) selected="selected"  @endif @if(old('category_id') == 1 ) selected="selected"  @endif value="1">市区/街道</option>
+						  <option @if(! old('district_id')) selected="selected"  @endif @if(old('district_id') == 1 ) selected="selected"  @endif value="1">市区/街道</option>
 						  <option @if(old('district_id') == 2 ) selected="selected"  @endif value="2">青石镇</option>
 						  <option @if(old('district_id') == 3 ) selected="selected"  @endif value="3">榆林镇</option>
 						  <option @if(old('district_id') == 4 ) selected="selected"  @endif value="4">花甸镇</option>
@@ -173,7 +208,7 @@ $(document).ready(function(){
 						  @if($errors->has('expired_days')) <p class="text-warning small"><strong>{{ $errors->first('expired_days') }}</strong></p>  @endif
 						</div>
 				    </div>
-				    <div class="col-md-6">
+				    <div class="col-md-6 col-ms-6">
 						<span class="help-block small"> 可根据实际需要修改</span>
 				    </div>
 				  </div>
@@ -213,7 +248,7 @@ $(document).ready(function(){
 				  <div  id="email-form-group" class="form-group @if($errors->has('email')) has-error  @endif">
 				    <label for="email" class="col-md-2 control-label">邮箱</label>
 				    <div class="col-md-2">
-						<input autocomplete="off" type="text" class="form-control" name="email" id="email" value="{{ old('email') }}" maxlength="15">
+						<input autocomplete="off" type="text" class="form-control" name="email" id="email" value="{{ old('email') }}" maxlength="20">
                         @if($errors->has('email'))<strong><p id="msgEmail" class="text-warning small">{{ $errors->first('email') }}</p></strong>@endif
 				    </div>
 				    <div class="col-md-6">

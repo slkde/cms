@@ -7,13 +7,12 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Category;
 use App\Models\Article;
-use App\Models\Comment;
 use App\Models\Image;
 use App\Http\Requests\PostRequest;
 use App\Http\Requests\PostEditRequest;
-use App\Http\Requests\CommentRequest;
 use Jenssegers\Agent\Agent;
 use Log;
+use Cache;
 class PostController extends Controller
 {
     //
@@ -23,10 +22,11 @@ class PostController extends Controller
         return view('home.info.post', compact('menu'));
     }
 
+    //显示添加信息
     public function store(PostRequest $request){
         $agent = new Agent();
         $timeUsed =  microtime(true) - session('time_start');
-        $input = $request->except('_token', 'captcha', 'images');
+        $input = $request->except('_token', 'captcha', 'images', 'pid');
         $input['ip'] = $request->ip();
         $input['is_mobile'] = $agent->isMobile() ? 'Y' : 'N';
         //判断灌水并存入日志
@@ -67,34 +67,11 @@ class PostController extends Controller
         return redirect()->route('result')->with('message', '信息提交成功，审核通过后，就会在网站上显示！');
     }
 
-    public function comment(CommentRequest $request){
-        $input = $request->except('_token', 'captcha');
-        $input['ip'] = $request->ip();
-        $input['content'] = strip_tags($input['content']);
-        //保存评论
-        if(!Comment::create($input)){
-            $request->flash();
-            return redirect()->back();
-        }
-        return redirect("/info-".$request->input('article_id').".html/")->with('message' , '留言成功，审核通过后才会在页面显示。');
-    }
-    //验证修改信息密码
-    public function auth(Request $request){
-        $input = $request->except('_token');
-        $id = $input['id'];
-        // 获取对象
-        $item = Article::where('id', $id)->where('manage_passwd', $input['password'])->get()->first();
-        if(!$item){
-            return redirect()->back()->with('msgAuth' , '密码错误！');
-        }
-        //验证成功保存到SESSION
-        $request->session()->put("auth.$id", true);
-        return redirect()->back();
-    }
+    
     //编辑信息
     public function edit($id){
         if(! session("auth.$id")) {
-            return redirect('/message')->with('message', '您无权访问该页面！');
+            return redirect('/result')->with('message', '您无权访问该页面！');
         }
         $item = Article::find($id);
         // dd($item);
@@ -107,7 +84,7 @@ class PostController extends Controller
         $input['is_verify'] = 'N';
         // dd($input);
         if(! session("auth.$id")) {
-            return redirect('/message')->with('message', '您无权访问该页面！');
+            return redirect('/result')->with('message', '您无权访问该页面！');
         }
         $item = Article::find($id);
 
@@ -132,11 +109,11 @@ class PostController extends Controller
                 }
             }
         }
-
+        Cache::flush();
         return redirect('/result')->with('message', '信息保存成功，管理员审核通过后，就会在网站上显示！');
     }
 
-
+    //删除信息
     public function destroy($id,Request $request){
         // dd($request->input('id'));
         // dd($request->session());
@@ -151,14 +128,7 @@ class PostController extends Controller
         }
     }
 
-    public function result(){
-        if (!session('message'))
-        {
-          return redirect('/');
-        }
-        return view('home.info.result', ['message' => session('message')]);
-    }
-
+    //获取子分类
     public function getChilds(Request $request){
         $id = $request->input('id'); 
         $item = Category::where('pid', $id)->get();
