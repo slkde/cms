@@ -3,4 +3,5 @@ Disallow: /
 User-agent: *
 Disallow:
 Disallow: /279497165/
+Disallow: /weichat
 Sitemap: http://www.ja168.net/sitemap.xml

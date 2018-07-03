@@ -19,7 +19,7 @@ Route::group(['namespace'=>'Home'], function(){
     Route::get('/about', 'PageController@about')->name('about');
     Route::post('/getinfo', 'CategoryController@getinfo')->name('getinfo');
     Route::get('/statement', 'PageController@statement')->name('statement');
-    Route::get('/tp', 'PageController@tp')->name('tp');
+    Route::get('/tp', 'PageController@tp')->name('top');
     Route::get('/search/{key}', 'SearchController@search')->name('search');
     Route::post('/hits', 'PageController@hits')->name('hits');
     Route::resource('/post', 'PostController');
