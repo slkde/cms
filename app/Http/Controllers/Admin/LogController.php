@@ -13,4 +13,9 @@ class LogController extends Controller
         // dd($logs);
         return view('admin.log.index', compact('logs'));
     }
+
+    public function weichat(){
+        $logs = file_exists(storage_path('logs/wechat.log')) ? file_get_contents(storage_path('logs/wechat.log')) : '';
+        return view('admin.log.weichat', compact('logs'));
+    }
 }

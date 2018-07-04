@@ -36,6 +36,7 @@
 			未查到信息
             @endforelse
 		</div>
+		{{$items->appends(['search'=>$key])->links()}}
     </div>
 </div>
 

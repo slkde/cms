@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
+use Cache;
 
 class CommentController extends Controller
 {
@@ -65,6 +66,7 @@ class CommentController extends Controller
         if(!$item->update(['is_verify' => $verify])){
             return response()->json(['static' => 'false']);
         }else{
+            Cache::forget('comments'. $item->article->id);
             return response()->json(['static' => 'true']);
         }
     }

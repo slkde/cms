@@ -195,7 +195,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="{{url('279497165/vlog')}}"><i class="fa fa-circle-o"></i>访问日志</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o"></i>管理日志</a></li>
+                        <li><a href="{{url('279497165/weichat')}}"><i class="fa fa-circle-o"></i>管理日志</a></li>
                     </ul>
                 </li>
 

@@ -38,7 +38,7 @@
                 </ul>
                <form class="navbar-form navbar-left">
                 <div class="input-group"  >
-                  <input type="text" style="font-size: 12px;" class="form-control" placeholder="请输入电话或者关键词" id="keyword" value="{{ isset($key) ? $key : '' }}">
+                  <input type="text" style="font-size: 12px;" class="form-control" placeholder="请输入电话或者关键词" id="keyword" value="{{  $key or '' }}">
                   <div class="input-group-btn">
                     <button class="btn btn-default" type="submit" id="search">
                       <i class="icon-search"></i>

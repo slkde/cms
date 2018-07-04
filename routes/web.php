@@ -45,6 +45,7 @@ Route::group(['namespace'=>'Admin', 'prefix'=>'279497165', 'middleware'=>'App\Ht
     Route::post('/clearlog', 'DashboardController@clearlog')->name('clearlog');
     Route::post('/clearcache', 'DashboardController@clearcache')->name('clearcache');
     Route::get('/vlog', 'LogController@vlog')->name('vlog');
+    Route::get('/weichat', 'LogController@weichat')->name('weichatlog');
 });
 //后台登陆路由
 Route::get('/279497165/login', 'Admin\LoginController@login')->name('adminlogin');
