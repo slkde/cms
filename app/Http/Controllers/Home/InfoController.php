@@ -19,15 +19,19 @@ class InfoController extends Controller
     public function info($id, Request $request){
         // $menu = Category::where('pid', 0)->get();
         $item = Cache::remember('info' . $id, 60 * 24 * 365, function () use($id) {
-            $item = Article::find($id)->toArray();
+            $item = Article::find($id);
+            if(! $item || $item['is_verify'] == 'N') {
+                abort(404);
+            }
+            $item = $item->toArray();
             $item['images'] = Image::select('file')->where('article_id', $id)->get()->toArray();
             $item['district'] = District::select('name')->find($item['district_id'])->toArray()['name'];
             return $item;
         });
         // dd($item);
-        if(! $item || $item['is_verify'] == 'N') {
-            abort(404);
-        }
+        // if(! $item || $item['is_verify'] == 'N') {
+        //     abort(404);
+        // }
         //导航栏
         $category =  Category::find($item['category_id']);
         if(!count($category->getparent)){

@@ -73,10 +73,10 @@ class CategoryController extends Controller
                 echo "
                     <a target=\"_blank\" href=\"/info-".$item->id.".html\" class=\"list-group-item\">
                     <h4 class=\"list-group-item-heading\">
-                    
+                    ".$leftIcon."
                     <span>".str_limit($item->title, 40)."</span> ".$mobileIcon."
                     </h4>
-                    <span class=\"list-group-item-text small text-muted\">".str_limit($item->content, 80)."</span>".$leftIcon."<span class=\"pull-right small\">".date('Y-m-d',strtotime($item->created_at))."</span>
+                    <span class=\"list-group-item-text small text-muted\">".str_limit($item->content, 80)."</span><span class=\"pull-right small\">".date('Y-m-d',strtotime($item->created_at))."</span>
                     </a>
                 ";
                 }
