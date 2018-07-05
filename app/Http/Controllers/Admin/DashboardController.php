@@ -43,7 +43,8 @@ class DashboardController extends Controller
     
     public function clearlog()
 	{
-		@file_put_contents(storage_path() . '/logs/laravel.log', '');
+        @file_put_contents(storage_path() . '/logs/laravel.log', '');
+        @file_put_contents(storage_path('logs/wechat.log'), '');
 		return 'ok';
     }
     

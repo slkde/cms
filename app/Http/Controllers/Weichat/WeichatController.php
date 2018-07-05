@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Log;
 use EasyWeChat\Kernel\Messages\Text;
+use App\Models\Article;
+use Cache;
 
 class WeichatController extends Controller
 {
@@ -19,6 +21,38 @@ class WeichatController extends Controller
                     return '欢迎关注集安信息网';
                     break;
                 case 'text':
+                    if ($message['FromUserName'] == 'oPoOQwTaaB4I9vn4qwcHnHVPxVHQ' || $message['FromUserName'] == 'oPoOQwfDJXApK8VQS2HNx5GtA8CM'){
+                        $msg = explode('@', $message['Content']);
+                        switch ($msg['0']) {
+                            case '未审核':
+                                $data = Article::where('is_verify', '=', 'N')->count();
+                                if(!$data){
+                                    return '没有未审核信息';
+                                }
+                                return '未审核信息'.$data.'条！';
+                                break;
+                            case '审核':
+                                $item = Article::find($msg['1']);
+                                if(! $item){
+                                    return '信息不存在！';
+                                }
+                                $item->update(['is_verify' => 'Y']);
+                                return '审核<'. $msg['1'] .'>成功！';
+                                break;
+                            case '取消审核':
+                                $item = Article::find($msg['1']);
+                                if(! $item){
+                                    return '信息不存在！';
+                                }
+                                $item->update(['is_verify' => 'N']);
+                                return '取消审核<'. $msg['1'] .'>成功！';
+                                break;
+                            case '清空缓存':
+                                Cache::flush();
+                                return '清空缓存成功！';
+                                break;
+                        }
+                    }
                     return 'http://www.ja168.net';
                     break;
                 case 'image':
