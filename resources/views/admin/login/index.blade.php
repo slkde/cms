@@ -30,7 +30,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="www.ja168.net"><b>集安信息网</b>ja168.net</a>
+    <a href="http://www.ja168.net"><b>集安信息网</b>ja168.net</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
@@ -41,7 +41,7 @@
       <div class="form-group has-feedback">
           
         <input type="name" name="name" class="form-control" value="{{old('name')}}" placeholder="用户名">
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
         <input type="password" name="password" class="form-control" value="{{old('password')}}" placeholder="密码">

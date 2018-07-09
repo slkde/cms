@@ -25,27 +25,40 @@ class WeichatController extends Controller
                         $msg = explode('@', $message['Content']);
                         switch ($msg['0']) {
                             case '未审核':
-                                $data = Article::where('is_verify', '=', 'N')->count();
-                                if(!$data){
+                                $data = Article::select('id', 'title')->where('is_verify', '=', 'N')->get();
+                                if($data->isEmpty()){
                                     return '没有未审核信息';
                                 }
-                                return '未审核信息'.$data.'条！';
+                                $data = $data->toArray();
+                                $str = '';
+                                foreach($data as $v){
+                                    $str .= $v['id'] . ',' . $v['title'] . '。' ;
+                                }
+                                return $str;
+                                // return '未审核信息'.$data.'条！';
                                 break;
                             case '审核':
-                                $item = Article::find($msg['1']);
+                                $item = Article::find($msg[1]);
                                 if(! $item){
                                     return '信息不存在！';
                                 }
                                 $item->update(['is_verify' => 'Y']);
-                                return '审核<'. $msg['1'] .'>成功！';
+                                return '审核<'. $msg[1] .'>成功！';
+                                break;
+                            case '查看':
+                                $item = Article::find($msg[1]);
+                                if(! $item){
+                                    return '信息不存在！';
+                                }
+                                return $item->content;
                                 break;
                             case '取消审核':
-                                $item = Article::find($msg['1']);
+                                $item = Article::find($msg[1]);
                                 if(! $item){
                                     return '信息不存在！';
                                 }
                                 $item->update(['is_verify' => 'N']);
-                                return '取消审核<'. $msg['1'] .'>成功！';
+                                return '取消审核<'. $msg[1] .'>成功！';
                                 break;
                             case '清空缓存':
                                 Cache::flush();
