@@ -46,7 +46,7 @@ $(document).ready(function(){
 
 		/* 检查电话 */
 		var tip   = $('#msgTel'), phone = $('#tel').val();
-		var reg = /^1[3|4|5|7|8][0-9]\d{8}$/;
+		var reg = /^1[3|4|5|7|8|9][0-9]\d{8}$/;
 		if (! reg.test(phone)) {
 			$("#tel-form-group").addClass('has-error');
 			tip.html('手机号格式错误');

@@ -1,5 +1,7 @@
 User-agent: YisouSpider
 Disallow: /
+User-agent: MJ12bot
+Crawl-delay: 18000
 User-agent: *
 Disallow:
 Disallow: /279497165/

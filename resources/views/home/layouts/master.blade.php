@@ -66,7 +66,7 @@
                         <a target="_blank" href="/tp">置顶</a> &nbsp; 
                         <a target="_blank" href="/statement">声明</a> &nbsp; 
                         <a target="_blank" href="/blog">博客</a> &nbsp; 
-                        <a class="hidden-xs" target="_blank" href="sitemap.xml">Sitemap</a>
+                        <a class="hidden-xs" target="_blank" href="/sitemap.xml">Sitemap</a>
 
                     </p>
                   <p>Copyright @ 2011-2018 集安小江南信息网 吉ICP备11004057号</p>

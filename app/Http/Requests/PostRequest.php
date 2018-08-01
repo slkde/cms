@@ -29,7 +29,7 @@ class PostRequest extends FormRequest
             'expired_days'   =>  'required|alpha_num',
             'title'          =>  'required|min:6',
             'content'        =>  'required',
-            'tel'            =>  ['required', 'regex:/^1[3|4|5|7|8][0-9]\d{8}$/'],
+            'tel'            =>  ['required', 'regex:/^1[3|4|5|7|8|9][0-9]\d{8}$/'],
             'manage_passwd'  =>  'required|min:4',
             'images.*'       =>  'image|max:2048',
             'captcha'        =>  'required|captcha'
