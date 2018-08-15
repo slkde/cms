@@ -111,6 +111,13 @@
         </div>
 
         <div class="panel panel-default hidden-xs">     
+          <div class="panel-heading"><div class="text-muted pull-left">支付宝扫码领红包</div>&nbsp;</div>
+          <div class="list-group small">            
+            <div class="text-center"><img width="80%" src="{{ asset('/upload/alipayhb.jpg') }}"></div>
+          </div>
+        </div>
+
+        <div class="panel panel-default hidden-xs">     
           <div class="panel-heading"><div class="text-muted pull-left">最新回复</div>&nbsp;</div>
           <div class="list-group small">            
             @foreach ($comments as $item)

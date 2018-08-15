@@ -20,7 +20,7 @@
                   <p>栏目置顶　20元/周　 60元/月　330元/半年　 600元/年</p>
                   <hr />
                   <p style="font-size: 18px;" class="text-muted">详情咨询</p>
-                  <p>电话：155-0037-6323 &nbsp;&nbsp; 扣扣：279497165 &nbsp;&nbsp; 微信：279497165</p>                
+                  <p>扣扣：279497165 &nbsp;&nbsp; 微信：279497165</p>                
               </div>
               <strong class="text-warning" style="font-size: 12px;">注：集安信息网对首页或栏目置顶信息不提供任何保证，不承担任何责任</strong>
             </div> 
