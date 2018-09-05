@@ -12,6 +12,27 @@
         @stack('css')
     </head>
     <body>
+        </div>
+        <script type="text/javascript">
+          (function(win,doc){
+                var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0];
+                if (!win.alimamatk_show) {
+                    s.charset = "gbk";
+                    s.async = true;
+                    s.src = "https://alimama.alicdn.com/tkapi.js";
+                    h.insertBefore(s, h.firstChild);
+                };
+                var o = {
+                    pid: "mm_31378226_46578774_19966750203",/*推广单元ID，用于区分不同的推广渠道*/
+                    appkey: "24950673",/*通过TOP平台申请的appkey，设置后引导成交会关联appkey*/
+                    unid: "",/*自定义统计字段*/
+                    type: "click" /* click 组件的入口标志 （使用click组件必设）*/
+                };
+                win.alimamatk_onload = win.alimamatk_onload || [];
+                win.alimamatk_onload.push(o);
+            })(window,document);
+        
+        </script>
         <div class="container">
           <nav class="navbar navbar-default"  role="navigation">
             <div class="container">
@@ -49,12 +70,17 @@
               </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
           </nav>
+          {{-- 广告位 --}}
           <div class="text-center hidden-xs">
-           <script type="text/javascript">
-              var cpro_id = "u2951847";
-          </script>
-          <script type="text/javascript" src="http://cpro.baidustatic.com/cpro/ui/c.js"></script>
+
+            <script type="text/javascript">
+                var cpro_id = "u2951847";
+            </script>
+            <script type="text/javascript" src="http://cpro.baidustatic.com/cpro/ui/c.js"></script>
+
+            
           </div>
+          
           @yield('content')
           <div class="row">
             <div  class="col-md-12 text-center small">
@@ -82,8 +108,8 @@
                             <li><a target="_blank" href="http://www.jldh.net/">敦化信息网</a></li>
                             <li><a target="_blank" href="http://www.2ya.com.cn/">公主岭供求世界</a></li>
                             <li><a target="_blank" href="http://www.419300.com/">溆浦信息网</a></li>
-                            <li><a target="_blank" href="http://www.ja168.net/url/aHR0cDovL3RpZWJhLmJhaWR1LmNvbS9mP2t3PSVCQyVBRiVCMCVCMiZmcj1hbGEwJnRwbD01">集安贴吧</a></li>
-                            <li><a target="_blank" href="http://www.ja168.net/url/aHR0cDovL3d3dy53ZWF0aGVyLmNvbS5jbi93ZWF0aGVyLzEwMTA2MDUwNS5zaHRtbA==">集安天气</a></li>
+                            <li><a target="_blank" href="/url/aHR0cDovL3RpZWJhLmJhaWR1LmNvbS9mP2t3PSVCQyVBRiVCMCVCMiZmcj1hbGEwJnRwbD01">集安贴吧</a></li>
+                            <li><a target="_blank" href="/url/aHR0cDovL3d3dy53ZWF0aGVyLmNvbS5jbi93ZWF0aGVyLzEwMTA2MDUwNS5zaHRtbA==">集安天气</a></li>
                             
                     </ul>
                   @endif
@@ -114,10 +140,17 @@
                     window.location.href = '/search/' + keyword;
                     return false;
               });
+              // var _hmt = _hmt || [];
+              // (function() {
+              //   var hm = document.createElement("script");
+              //   hm.src = "https://hm.baidu.com/hm.js?7c264a8d181125904ec9d9a949b71c0d";
+              //   var s = document.getElementsByTagName("script")[0]; 
+              //   s.parentNode.insertBefore(hm, s);
+              // })();
               var _hmt = _hmt || [];
               (function() {
                 var hm = document.createElement("script");
-                hm.src = "https://hm.baidu.com/hm.js?7c264a8d181125904ec9d9a949b71c0d";
+                hm.src = "https://hm.baidu.com/hm.js?a64d6598aabfd46656aad760fe6b5354";
                 var s = document.getElementsByTagName("script")[0]; 
                 s.parentNode.insertBefore(hm, s);
               })();

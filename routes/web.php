@@ -54,3 +54,9 @@ Route::get('/279497165/logout', 'Admin\LoginController@logout')->name('adminlogo
 
 //微信公众号
 Route::any('weichat', 'Weichat\WeichatController@weichat')->name('weichat');
+
+//页面跳转
+Route::get('/url/{where}', function (Request $request, $where) {
+    echo "正在为您跳转......";
+    return redirect(base64_decode($where) . '?from=www.ja168.net');
+});
