@@ -63,6 +63,7 @@
                   <li><a href="/category/4" ><i class="icon-bell">&nbsp;</i>服务</a></li>
                   <li><a href="/category/5" ><i class="icon-heart">&nbsp;</i>交友</a></li>
                   <li><a href="/category/6" ><i class="icon-truck">&nbsp;</i>车辆</a></li>
+                  <li><a href="/blog" target="_blank"><i class="icon-user">&nbsp;</i>集安博客</a></li>
                 </ul>
                <form class="navbar-form navbar-left">
                 <div class="input-group"  >
@@ -78,14 +79,13 @@
             </div><!-- /.container-fluid -->
           </nav>
           {{-- 广告位 --}}
-          <div class="text-center hidden-xs">
-
+          <div class="row hidden-xs">
+            <div class="col-md-12 text-center small">
             <script type="text/javascript">
                 var cpro_id = "u2951847";
             </script>
             <script type="text/javascript" src="http://cpro.baidustatic.com/cpro/ui/c.js"></script>
-
-            
+            </div>   
           </div>
           
           @yield('content')
@@ -117,7 +117,6 @@
                             <li><a target="_blank" href="http://www.419300.com/">溆浦信息网</a></li>
                             <li><a target="_blank" href="/url/aHR0cDovL3RpZWJhLmJhaWR1LmNvbS9mP2t3PSVCQyVBRiVCMCVCMiZmcj1hbGEwJnRwbD01">集安贴吧</a></li>
                             <li><a target="_blank" href="/url/aHR0cDovL3d3dy53ZWF0aGVyLmNvbS5jbi93ZWF0aGVyLzEwMTA2MDUwNS5zaHRtbA==">集安天气</a></li>
-                            
                     </ul>
                   @endif
             </div>

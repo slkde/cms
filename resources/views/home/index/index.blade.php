@@ -47,19 +47,15 @@
         <h4 class="modal-title" id="myModalLabel">请输入您的电话：</h4>
       </div>
       <div class="modal-body small">
-        
-          <form class="form-inline" method="get" action="/search/">
-            <center>
+          <form class="form-inline text-center" method="get" action="/search/">
                 <div id="searchInfoByTelForm" class="form-group">
                   <label class="sr-only" for="tel">电话</label>
                   <input maxlength="15" type="text" class="form-control input-default" id="tel" placeholder="电话" name="tel">
                 </div>
-                <button type="button" id="searchInfoByTel" class="btn btn-default btn-default">查找</button>                
-                <p />
-                <div class="modal-footer" id="msgSearch">&nbsp;</div>
-            </center>
+                <button type="button" id="searchInfoByTel" class="btn btn-default">查找</button>
           </form>
       </div>
+      <div class="modal-footer" id="msgSearch">&nbsp;</div>
     </div>
   </div>
 </div>
@@ -97,7 +93,7 @@
               </ul>
           </div>
           {{-- @if ($isShowMore == true) --}}
-          <div align="center" id="readmorecontainer"><input id="readmore" class="btn btn-info btn-default btn-block" type="button" value=" 加载更多 "></div>
+          <div class="text-center" id="readmorecontainer"><input id="readmore" class="btn btn-info btn-default btn-block" type="button" value=" 加载更多 "></div>
           {{-- @endif --}}
     </div>
   <div class="col-md-4" id="container-main-right">
@@ -110,7 +106,7 @@
           </div>
         </div>
 
-        <div class="panel panel-default hidden-xs">     
+        <div class="panel panel-default hidden-xs hidden-sm">     
           <div class="panel-heading"><div class="text-muted pull-left">支付宝扫码领红包</div>&nbsp;</div>
           <div class="list-group small">            
             <div class="text-center"><img width="80%" src="{{ asset('/upload/alipayhb.jpg') }}"></div>
